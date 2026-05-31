@@ -168,6 +168,35 @@ export default function VerifyPendingPage() {
           )}
         </div>
 
+        {/* Admin Sandbox Simulator (Developer Mode) */}
+        <div className="bg-indigo-950/40 border border-indigo-500/20 rounded-2xl p-5 space-y-4">
+          <div className="flex items-center gap-2 text-indigo-400">
+            <ShieldCheck size={20} />
+            <h3 className="text-sm font-bold">Admin Sandbox Simulator (Developer Mode)</h3>
+          </div>
+          <p className="text-xs text-indigo-200/80 leading-relaxed">
+            Since you are testing, you can bypass the manual review wait time using this sandbox controller.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3">
+            <Button
+              variant="gradient"
+              className="w-full justify-center"
+              onClick={() => handleSimulateVerification('Verified')}
+              disabled={loading}
+            >
+              {loading && simulatorAction === 'Verified' ? 'Approving...' : 'Simulate Approve Account'}
+            </Button>
+            <Button
+              variant="outline"
+              className="w-full justify-center border-rose-500/30 text-rose-400 hover:bg-rose-500/10"
+              onClick={() => handleSimulateVerification('Rejected')}
+              disabled={loading}
+            >
+              {loading && simulatorAction === 'Rejected' ? 'Rejecting...' : 'Simulate Reject Account'}
+            </Button>
+          </div>
+        </div>
+
         {/* Global Action Footer */}
         <div className="flex items-center justify-between border-t border-slate-800/80 pt-5">
           <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400">
