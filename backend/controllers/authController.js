@@ -41,6 +41,8 @@ exports.signup = async (req, res) => {
       const aiResult = await verifyIDCardAI(imagePath, name, expectedInstitution, liveSelfiePath);
       if (aiResult.isGenuine) {
         verificationStatus = 'Verified';
+      } else if (aiResult.reason === 'AI analysis failed. Requires manual review.') {
+        verificationStatus = 'Pending';
       } else {
         return res.status(400).json({ 
           message: `ID Verification Failed: ${aiResult.reason}. Please resubmit your application with clearer photos.` 
