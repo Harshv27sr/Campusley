@@ -52,7 +52,7 @@ export default function Navbar() {
   // Fetch unread notification count when logged in
   useEffect(() => {
     if (!isAuthenticated) return
-    import('../services/userService').then(({ userService }) => {
+    import('../../services/userService').then(({ userService }) => {
       userService.getNotifications()
         .then(data => {
           const notifs = Array.isArray(data) ? data : []

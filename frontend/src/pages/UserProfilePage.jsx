@@ -113,7 +113,6 @@ export default function UserProfilePage() {
                     <Button variant="outline" size="sm" icon={<Edit2 size={14} />}>Edit Profile</Button>
                   </Link>
                 ) : (
-                  {/* Follow feature coming soon */}
                   <Button variant="outline" size="sm" disabled className="opacity-50 cursor-not-allowed">Follow (Soon)</Button>
                 )}
               </div>
