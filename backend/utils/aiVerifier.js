@@ -1,5 +1,14 @@
 const { GoogleGenAI } = require('@google/genai');
 const fs = require('fs');
+const path = require('path');
+
+function getMimeType(filePath) {
+  const ext = path.extname(filePath).toLowerCase();
+  if (ext === '.png') return 'image/png';
+  if (ext === '.webp') return 'image/webp';
+  if (ext === '.gif') return 'image/gif';
+  return 'image/jpeg';
+}
 
 async function verifyIDCardAI(imagePath, expectedName, expectedInstitution, liveSelfiePath) {
   try {
@@ -40,7 +49,7 @@ Reply in strict JSON format:
       {
         inlineData: {
           data: imageBase64,
-          mimeType: 'image/jpeg' 
+          mimeType: getMimeType(imagePath)
         }
       }
     ];
@@ -49,7 +58,7 @@ Reply in strict JSON format:
       contentsArray.push({
         inlineData: {
           data: selfieBase64,
-          mimeType: 'image/jpeg'
+          mimeType: getMimeType(liveSelfiePath)
         }
       });
     }
