@@ -15,7 +15,7 @@ const protect = async (req, res, next) => {
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'campusly_secure_jwt_secret_key_987654321_abcde');
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     
     if (mongoose.connection.readyState === 1) {
       req.user = await User.findById(decoded.id).select('-password');

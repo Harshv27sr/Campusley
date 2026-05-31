@@ -4,8 +4,13 @@ const router = express.Router();
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const rateLimit = require('express-rate-limit');
 const { signup, login, logout, getMe, forgotPassword, resetPassword, googleAuth, verifyAccount, getPublicStats, updateAvatar } = require('../controllers/authController');
 const { protect } = require('../middleware/auth');
+
+// Rate limiters
+const loginLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 10, message: { message: 'Too many login attempts. Please try again after 15 minutes.' }, standardHeaders: true, legacyHeaders: false });
+const signupLimiter = rateLimit({ windowMs: 60 * 60 * 1000, max: 5, message: { message: 'Too many signup attempts. Please try again after 1 hour.' }, standardHeaders: true, legacyHeaders: false });
 
 // Ensure upload folder exists
 const uploadDir = 'uploads/';
@@ -30,8 +35,8 @@ const upload = multer({
 });
 
 router.get('/public/stats', getPublicStats);
-router.post('/signup', upload.fields([{ name: 'idCard', maxCount: 1 }, { name: 'liveSelfie', maxCount: 1 }]), signup);
-router.post('/login', login);
+router.post('/signup', signupLimiter, upload.fields([{ name: 'idCard', maxCount: 1 }, { name: 'liveSelfie', maxCount: 1 }]), signup);
+router.post('/login', loginLimiter, login);
 router.post('/logout', logout);
 router.get('/me', protect, getMe);
 router.put('/profile/avatar', protect, upload.single('avatar'), updateAvatar);

@@ -1,8 +1,11 @@
 // src/components/home/HeroSection.jsx
 import { motion } from 'framer-motion'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { ArrowRight, Upload, Compass, Sparkles, BookOpen, Users, TrendingUp } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import Button from '../ui/Button'
+import { useAuth } from '../../context/AuthContext'
+import api from '../../services/api'
 
 const floatingCards = [
   { icon: '📄', label: 'Data Structures Notes', sub: '2.3k downloads', color: 'from-blue-500 to-cyan-500', delay: 0 },
@@ -11,6 +14,24 @@ const floatingCards = [
 ]
 
 export default function HeroSection() {
+  const { isAuthenticated } = useAuth()
+  const navigate = useNavigate()
+
+  const [stats, setStats] = useState({ totalNotes: 0, totalStudents: 0, totalColleges: 0 })
+
+  useEffect(() => {
+    api.get('/auth/public/stats')
+      .then(res => setStats(res.data))
+      .catch(() => {})
+  }, [])
+
+  const handleUploadClick = () => {
+    if (isAuthenticated) {
+      navigate('/upload')
+    } else {
+      navigate('/login', { state: { from: { pathname: '/upload' } } })
+    }
+  }
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
       {/* Background */}
@@ -73,11 +94,9 @@ export default function HeroSection() {
                   Explore Notes
                 </Button>
               </Link>
-              <Link to="/upload">
-                <Button variant="outline" size="lg" icon={<Upload size={18} />}>
-                  Upload Notes
-                </Button>
-              </Link>
+              <Button variant="outline" size="lg" icon={<Upload size={18} />} onClick={handleUploadClick}>
+                Upload Notes
+              </Button>
             </motion.div>
 
             {/* Stats */}
@@ -88,9 +107,9 @@ export default function HeroSection() {
               className="flex flex-wrap items-center gap-8"
             >
               {[
-                { icon: BookOpen, value: '50K+', label: 'Notes Shared' },
-                { icon: Users, value: '10K+', label: 'Students' },
-                { icon: TrendingUp, value: '500+', label: 'Colleges' },
+                { icon: BookOpen, value: stats.totalNotes > 0 ? `${stats.totalNotes.toLocaleString()}+` : '50K+', label: 'Notes Shared' },
+                { icon: Users, value: stats.totalStudents > 0 ? `${stats.totalStudents.toLocaleString()}+` : '10K+', label: 'Students' },
+                { icon: TrendingUp, value: stats.totalColleges > 0 ? `${stats.totalColleges}+` : '500+', label: 'Colleges' },
               ].map(({ icon: Icon, value, label }) => (
                 <div key={label} className="flex items-center gap-2.5">
                   <div className="w-9 h-9 rounded-xl bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center">

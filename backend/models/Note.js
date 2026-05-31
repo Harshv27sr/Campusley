@@ -99,6 +99,10 @@ const noteSchema = new mongoose.Schema({
     type: String,
     trim: true,
   },
+  subject: {
+    type: String,
+    trim: true,
+  },
 
   // Academic categorization for School
   schoolName: {

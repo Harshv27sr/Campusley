@@ -20,6 +20,7 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [profileOpen, setProfileOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
+  const [unreadCount, setUnreadCount] = useState(0)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,6 +48,19 @@ export default function Navbar() {
     document.addEventListener('click', close)
     return () => document.removeEventListener('click', close)
   }, [])
+
+  // Fetch unread notification count when logged in
+  useEffect(() => {
+    if (!isAuthenticated) return
+    import('../services/userService').then(({ userService }) => {
+      userService.getNotifications()
+        .then(data => {
+          const notifs = Array.isArray(data) ? data : []
+          setUnreadCount(notifs.filter(n => !n.read).length)
+        })
+        .catch(() => {})
+    })
+  }, [isAuthenticated])
 
   const handleSearchSubmit = (e) => {
     e.preventDefault()
@@ -112,7 +126,9 @@ export default function Navbar() {
                   className="relative w-9 h-9 flex items-center justify-center rounded-xl text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
                 >
                   <Bell size={18} />
-                  <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-rose-500 rounded-full animate-pulse" />
+                  {unreadCount > 0 && (
+                    <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-rose-500 rounded-full animate-pulse" />
+                  )}
                 </Link>
 
                 {/* Profile Dropdown */}
@@ -217,6 +233,21 @@ export default function Navbar() {
                 </Link>
               )}
 
+              {/* Mobile links */}
+              {isAuthenticated ? (
+                <div className="space-y-1 border-t border-slate-100 dark:border-slate-800 pt-3">
+                  <MobileNavLink to="/explore" onClick={() => setMobileOpen(false)}>🔍 Explore Notes</MobileNavLink>
+                  <MobileNavLink to="/papers" onClick={() => setMobileOpen(false)}>📝 PYQ Papers</MobileNavLink>
+                  <MobileNavLink to="/dashboard" onClick={() => setMobileOpen(false)}>📊 Dashboard</MobileNavLink>
+                  <MobileNavLink to="/bookmarks" onClick={() => setMobileOpen(false)}>🔖 Bookmarks</MobileNavLink>
+                </div>
+              ) : (
+                <div className="space-y-1 border-t border-slate-100 dark:border-slate-800 pt-3">
+                  <MobileNavLink to="/explore" onClick={() => setMobileOpen(false)}>🔍 Explore Notes</MobileNavLink>
+                  <MobileNavLink to="/papers" onClick={() => setMobileOpen(false)}>📝 PYQ Papers</MobileNavLink>
+                </div>
+              )}
+
               {!isAuthenticated && (
                 <div className="flex gap-2 pt-1">
                   <Link to="/login" onClick={() => setMobileOpen(false)} className="flex-1 text-center px-4 py-2.5 rounded-xl text-sm font-semibold border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300">
@@ -247,3 +278,16 @@ function DropItem({ to, icon: Icon, label, onClick, className = '' }) {
     </Link>
   )
 }
+
+function MobileNavLink({ to, onClick, children }) {
+  return (
+    <Link
+      to={to}
+      onClick={onClick}
+      className="block px-3 py-2 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+    >
+      {children}
+    </Link>
+  )
+}
+

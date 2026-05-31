@@ -12,7 +12,7 @@ export default function VerifyPendingPage() {
   const [loading, setLoading] = useState(false)
   const [simulatorAction, setSimulatorAction] = useState(null)
 
-  const serverUrl = 'http://localhost:5000'
+  const serverUrl = import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:5000'
   const idCardPreviewUrl = user?.idCardUrl ? `${serverUrl}${user.idCardUrl}` : null
   const isPdf = user?.idCardUrl?.toLowerCase().endsWith('.pdf')
 

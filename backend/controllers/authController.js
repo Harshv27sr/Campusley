@@ -8,7 +8,7 @@ const path = require('path');
 const { verifyIDCardAI } = require('../utils/aiVerifier');
 
 const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET || 'campusly_secure_jwt_secret_key_987654321_abcde', {
+  return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: '30d',
   });
 };

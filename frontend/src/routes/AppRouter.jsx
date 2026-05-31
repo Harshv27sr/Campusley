@@ -12,6 +12,10 @@ import ExploreNotesPage from '../pages/ExploreNotesPage'
 import NoteDetailPage from '../pages/NoteDetailPage'
 import PreviousYearPapersPage from '../pages/PreviousYearPapersPage'
 import NotFoundPage from '../pages/NotFoundPage'
+import AboutPage from '../pages/AboutPage'
+import PrivacyPage from '../pages/PrivacyPage'
+import TermsPage from '../pages/TermsPage'
+import ContactPage from '../pages/ContactPage'
 
 // Protected Pages
 import DashboardPage from '../pages/DashboardPage'
@@ -38,11 +42,17 @@ export default function AppRouter() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+      <Route path="/about" element={<AboutPage />} />
+      <Route path="/privacy" element={<PrivacyPage />} />
+      <Route path="/terms" element={<TermsPage />} />
+      <Route path="/contact" element={<ContactPage />} />
 
-      {/* Protected Core Pages */}
-      <Route path="/explore" element={<ProtectedRoute><ExploreNotesPage /></ProtectedRoute>} />
+      {/* Explore is now PUBLIC — no login required to browse */}
+      <Route path="/explore" element={<ExploreNotesPage />} />
+      <Route path="/papers" element={<PreviousYearPapersPage />} />
+
+      {/* Note detail requires login (to download) */}
       <Route path="/notes/:id" element={<ProtectedRoute><NoteDetailPage /></ProtectedRoute>} />
-      <Route path="/papers" element={<ProtectedRoute><PreviousYearPapersPage /></ProtectedRoute>} />
 
       {/* Protected */}
       <Route path="/verify-pending" element={<ProtectedRoute><VerifyPendingPage /></ProtectedRoute>} />
@@ -65,3 +75,4 @@ export default function AppRouter() {
     </Routes>
   )
 }
+
