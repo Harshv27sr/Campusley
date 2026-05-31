@@ -10,7 +10,7 @@ const { protect } = require('../middleware/auth');
 
 // Rate limiters
 const loginLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 10, message: { message: 'Too many login attempts. Please try again after 15 minutes.' }, standardHeaders: true, legacyHeaders: false });
-const signupLimiter = rateLimit({ windowMs: 60 * 60 * 1000, max: 5, message: { message: 'Too many signup attempts. Please try again after 1 hour.' }, standardHeaders: true, legacyHeaders: false });
+const signupLimiter = rateLimit({ windowMs: 60 * 60 * 1000, max: 100, message: { message: 'Too many signup attempts. Please try again after 1 hour.' }, standardHeaders: true, legacyHeaders: false });
 
 // Ensure upload folder exists
 const uploadDir = 'uploads/';
