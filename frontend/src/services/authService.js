@@ -1,0 +1,67 @@
+// src/services/authService.js
+import api from './api'
+
+export const authService = {
+  async signup(data) {
+    const headers = data instanceof FormData ? { 'Content-Type': 'multipart/form-data' } : {};
+    const res = await api.post('/auth/signup', data, { headers })
+    return res.data
+  },
+
+  async verifyAccount(status) {
+    const res = await api.put('/auth/verify', { status })
+    return res.data
+  },
+
+  async login(data) {
+    const res = await api.post('/auth/login', data)
+    if (res.data.token) {
+      localStorage.setItem('campusly_token', res.data.token)
+      localStorage.setItem('campusly_user', JSON.stringify(res.data.user))
+    }
+    return res.data
+  },
+
+  async logout() {
+    await api.post('/auth/logout')
+    localStorage.removeItem('campusly_token')
+    localStorage.removeItem('campusly_user')
+  },
+
+  async getMe() {
+    const res = await api.get('/auth/me')
+    return res.data
+  },
+
+  async forgotPassword(email) {
+    const res = await api.post('/auth/forgot-password', { email })
+    return res.data
+  },
+
+  async resetPassword(token, password) {
+    const res = await api.post(`/auth/reset-password/${token}`, { password })
+    return res.data
+  },
+
+  async googleAuth(token) {
+    const res = await api.post('/auth/google', { token })
+    if (res.data.token) {
+      localStorage.setItem('campusly_token', res.data.token)
+      localStorage.setItem('campusly_user', JSON.stringify(res.data.user))
+    }
+    return res.data
+  },
+
+  getCurrentUser() {
+    const userStr = localStorage.getItem('campusly_user')
+    return userStr ? JSON.parse(userStr) : null
+  },
+
+  getToken() {
+    return localStorage.getItem('campusly_token')
+  },
+
+  isAuthenticated() {
+    return !!localStorage.getItem('campusly_token')
+  },
+}
