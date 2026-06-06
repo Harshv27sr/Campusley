@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+/* ===================== FORCE LIGHT MODE ONLY ===================== */
+/* Override Tailwind v4's media-query-based dark mode — we only want light */
+@variant dark (&:is(.dark *));
+
 @theme {
   /* ── NEW: Google/Microsoft style 3-color palette ── */
   --color-primary: #1A73E8;
