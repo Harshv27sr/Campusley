@@ -16,7 +16,7 @@ const links = {
   ],
   Company: [
     { label: 'About', to: '/about' },
-    { label: 'Privacy Policy', to: '/privacy' },
+    { label: 'Privacy Policy', to: '/privacy-policy' },
     { label: 'Terms of Service', to: '/terms' },
     { label: 'Contact', to: '/contact' },
   ],

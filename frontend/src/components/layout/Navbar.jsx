@@ -94,6 +94,19 @@ export default function Navbar() {
             <span className="text-xl font-bold font-display gradient-text hidden sm:block">Campusly</span>
           </Link>
 
+          {/* Desktop Navigation Links */}
+          <nav className="hidden lg:flex items-center gap-5 ml-4">
+            <Link to="/explore" className="text-sm font-semibold text-slate-650 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+              Explore
+            </Link>
+            <Link to="/about" className="text-sm font-semibold text-slate-650 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+              About Us
+            </Link>
+            <Link to="/contact" className="text-sm font-semibold text-slate-650 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+              Contact
+            </Link>
+          </nav>
+
           {/* Global Search Bar */}
           <form onSubmit={handleSearchSubmit} className="hidden md:flex items-center gap-2 max-w-md w-full bg-slate-100/80 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 rounded-xl px-3 py-1.5 focus-within:ring-2 focus-within:ring-indigo-500/20 focus-within:border-indigo-500 transition-all">
             <Search size={16} className="text-slate-400" />
@@ -240,11 +253,15 @@ export default function Navbar() {
                   <MobileNavLink to="/papers" onClick={() => setMobileOpen(false)}>📝 PYQ Papers</MobileNavLink>
                   <MobileNavLink to="/dashboard" onClick={() => setMobileOpen(false)}>📊 Dashboard</MobileNavLink>
                   <MobileNavLink to="/bookmarks" onClick={() => setMobileOpen(false)}>🔖 Bookmarks</MobileNavLink>
+                  <MobileNavLink to="/about" onClick={() => setMobileOpen(false)}>ℹ️ About Us</MobileNavLink>
+                  <MobileNavLink to="/contact" onClick={() => setMobileOpen(false)}>📞 Contact Us</MobileNavLink>
                 </div>
               ) : (
                 <div className="space-y-1 border-t border-slate-100 dark:border-slate-800 pt-3">
                   <MobileNavLink to="/explore" onClick={() => setMobileOpen(false)}>🔍 Explore Notes</MobileNavLink>
                   <MobileNavLink to="/papers" onClick={() => setMobileOpen(false)}>📝 PYQ Papers</MobileNavLink>
+                  <MobileNavLink to="/about" onClick={() => setMobileOpen(false)}>ℹ️ About Us</MobileNavLink>
+                  <MobileNavLink to="/contact" onClick={() => setMobileOpen(false)}>📞 Contact Us</MobileNavLink>
                 </div>
               )}
 
