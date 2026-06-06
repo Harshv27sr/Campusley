@@ -1,37 +1,25 @@
 // src/context/ThemeContext.jsx
-import { createContext, useContext, useState, useEffect } from 'react'
+import { createContext, useContext, useEffect } from 'react'
 
 const ThemeContext = createContext(null)
 
 export function ThemeProvider({ children }) {
-  const [isDark, setIsDark] = useState(() => {
-    const saved = localStorage.getItem('campusly_theme')
-    if (saved) return saved === 'dark'
-    return window.matchMedia('(prefers-color-scheme: dark)').matches
-  })
-
   useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add('dark')
-      document.body.classList.add('dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-      document.body.classList.remove('dark')
-    }
-    localStorage.setItem('campusly_theme', isDark ? 'dark' : 'light')
-  }, [isDark])
+    // Force clean light theme mode on load and prevent dark mode classes
+    document.documentElement.classList.remove('dark')
+    document.body.classList.remove('dark')
+    localStorage.setItem('campusly_theme', 'light')
+  }, [])
 
-  const toggleTheme = () => setIsDark(prev => !prev)
+  const toggleTheme = () => {}
 
   return (
-    <ThemeContext.Provider value={{ isDark, toggleTheme }}>
+    <ThemeContext.Provider value={{ isDark: false, toggleTheme }}>
       {children}
     </ThemeContext.Provider>
   )
 }
 
 export function useTheme() {
-  const context = useContext(ThemeContext)
-  if (!context) throw new Error('useTheme must be used within ThemeProvider')
-  return context
+  return { isDark: false, toggleTheme: () => {} }
 }

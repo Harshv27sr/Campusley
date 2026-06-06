@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { BookOpen } from 'lucide-react'
 import { motion } from 'framer-motion'
-import ThemeToggle from '../ui/ThemeToggle'
 import api from '../../services/api'
 
 export default function AuthLayout({ children, title, subtitle }) {
@@ -104,7 +103,6 @@ export default function AuthLayout({ children, title, subtitle }) {
             <span className="font-bold gradient-text font-display">Campusly</span>
           </Link>
           <div className="ml-auto">
-            <ThemeToggle />
           </div>
         </div>
 

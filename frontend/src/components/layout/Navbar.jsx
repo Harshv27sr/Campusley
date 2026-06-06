@@ -7,7 +7,6 @@ import {
   LogOut, Settings, LayoutDashboard, Shield, Menu, X, Search
 } from 'lucide-react'
 import { useAuth } from '../../context/AuthContext'
-import ThemeToggle from '../ui/ThemeToggle'
 import Avatar from '../ui/Avatar'
 import Button from '../ui/Button'
 
@@ -129,7 +128,6 @@ export default function Navbar() {
               </Link>
             )}
 
-            <ThemeToggle />
 
             {isAuthenticated ? (
               <>

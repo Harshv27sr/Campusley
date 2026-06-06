@@ -24,19 +24,19 @@ const links = {
 
 export default function Footer() {
   return (
-    <footer className="bg-slate-900 text-slate-300 pt-16 pb-8">
+    <footer className="bg-gray-50 text-gray-600 pt-16 pb-8 border-t border-gray-200">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6">
         {/* Top Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-12">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <Link to="/" className="flex items-center gap-2.5 mb-4">
-              <div className="w-9 h-9 rounded-xl gradient-primary flex items-center justify-center">
-                <BookOpen size={18} className="text-white" />
+              <div className="w-9 h-9 rounded-xl bg-white border border-gray-250 flex items-center justify-center shadow-sm">
+                <BookOpen size={18} className="text-[#1A73E8]" />
               </div>
-              <span className="text-xl font-bold text-white font-display">Campusly</span>
+              <span className="text-xl font-bold text-gray-900 font-display">Campusly</span>
             </Link>
-            <p className="text-sm text-slate-400 leading-relaxed mb-5">
+            <p className="text-sm text-gray-505 leading-relaxed mb-5">
               Your smart campus learning platform. Upload, discover, and share academic resources with students across India.
             </p>
           </div>
@@ -44,13 +44,13 @@ export default function Footer() {
           {/* Link Columns */}
           {Object.entries(links).map(([section, items]) => (
             <div key={section}>
-              <h4 className="text-white font-semibold text-sm mb-4">{section}</h4>
+              <h4 className="text-gray-900 font-semibold text-sm mb-4">{section}</h4>
               <ul className="space-y-3">
                 {items.map((item) => (
                   <li key={item.label}>
                     <Link
                       to={item.to}
-                      className="text-sm text-slate-400 hover:text-white transition-colors"
+                      className="text-sm text-gray-505 hover:text-[#1A73E8] transition-colors"
                     >
                       {item.label}
                     </Link>
@@ -62,20 +62,20 @@ export default function Footer() {
         </div>
 
         {/* Newsletter */}
-        <div className="border border-slate-700 rounded-2xl p-6 mb-10 bg-slate-800/50">
+        <div className="border border-gray-200 rounded-2xl p-6 mb-10 bg-white">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div>
-              <h4 className="text-white font-semibold mb-1">Stay updated with Campusly</h4>
-              <p className="text-sm text-slate-400">New notes, papers, and features delivered to your inbox.</p>
+              <h4 className="text-gray-900 font-semibold mb-1">Stay updated with Campusly</h4>
+              <p className="text-sm text-gray-505">New notes, papers, and features delivered to your inbox.</p>
             </div>
             <div className="flex gap-2 w-full sm:w-auto">
               <input
                 type="email"
                 placeholder="your@email.com"
                 disabled
-                className="flex-1 sm:w-56 px-4 py-2.5 rounded-xl bg-slate-700 border border-slate-600 text-white placeholder:text-slate-500 text-sm focus:outline-none cursor-not-allowed opacity-50"
+                className="flex-1 sm:w-56 px-4 py-2.5 rounded-xl bg-gray-100 border border-gray-200 text-gray-900 placeholder:text-gray-400 text-sm focus:outline-none cursor-not-allowed opacity-50"
               />
-              <button disabled className="px-5 py-2.5 rounded-xl bg-slate-700 text-slate-400 text-sm font-semibold whitespace-nowrap cursor-not-allowed opacity-60 border border-slate-600">
+              <button disabled className="px-5 py-2.5 rounded-xl bg-gray-100 text-gray-505 text-sm font-semibold whitespace-nowrap cursor-not-allowed opacity-60 border border-gray-200">
                 Coming Soon
               </button>
             </div>
@@ -83,29 +83,15 @@ export default function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="border-t border-slate-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-sm text-slate-500 dark:text-slate-400">
+        <div className="border-t border-gray-200 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="text-sm text-gray-505">
             © {new Date().getFullYear()} Campusly. All rights reserved.
           </p>
-          <p className="text-sm text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
+          <p className="text-sm text-gray-505 flex items-center gap-1.5">
             Made with <Heart size={13} className="text-red-400 fill-red-400" /> for students across India
           </p>
         </div>
       </div>
     </footer>
-  )
-}
-
-function SocialLink({ href, label, children }) {
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label={label}
-      className="w-9 h-9 rounded-xl bg-slate-800 flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-700 transition-all"
-    >
-      {children}
-    </a>
   )
 }
