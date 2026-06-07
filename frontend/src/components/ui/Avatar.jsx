@@ -26,7 +26,7 @@ export default function Avatar({ src, name, size = 'md', className = '', online 
 
   if (finalSrc) {
     return (
-      <div className={cn('relative flex-shrink-0', className)}>
+      <div className={cn('relative flex-shrink-0 rounded-full', className)}>
         <img
           src={finalSrc}
           alt={name || 'User'}
@@ -49,7 +49,7 @@ export default function Avatar({ src, name, size = 'md', className = '', online 
   }
 
   return (
-    <div className={cn('relative flex-shrink-0', className)}>
+    <div className={cn('relative flex-shrink-0 rounded-full', className)}>
       <div
         className={cn(
           'rounded-full flex items-center justify-center font-bold bg-gradient-to-br from-blue-500 to-purple-600 text-white',

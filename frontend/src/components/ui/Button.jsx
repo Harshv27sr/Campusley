@@ -36,7 +36,7 @@ export default function Button({
   return (
     <button
       className={cn(
-        'btn font-semibold transition-all duration-200 rounded-xl select-none',
+        'inline-flex items-center justify-center font-semibold transition-all duration-200 rounded-xl select-none',
         sizes[size],
         variants[variant],
         isGradient && 'bg-gradient-to-r from-blue-600 to-purple-600',

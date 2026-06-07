@@ -148,20 +148,20 @@ export default function ExploreNotesPage() {
 
   return (
     <MainLayout>
-      <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
+      <div className="min-h-screen" style={{ backgroundColor: '#1A1A24' }}>
         {/* Header */}
-        <div className={`bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky transition-all duration-300 z-30 ${
+        <div className={`border-b border-white/5 sticky transition-all duration-300 z-30 ${
           navVisible ? 'top-16' : 'top-0'
-        }`}>
-          <div className="max-w-[1440px] mx-auto px-4 sm:px-6 py-4">
+        }`} style={{ backgroundColor: '#0F0F14' }}>
+          <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-16 py-4">
             {/* Level Selector Tabs */}
-            <div className="flex border-b border-slate-100 dark:border-slate-800 mb-4 gap-4">
+            <div className="flex border-b border-white/5 mb-4 gap-4">
               <button
                 onClick={() => setLevel('College')}
                 className={`flex items-center gap-2 pb-3 text-sm font-semibold border-b-2 transition-all
                   ${level === 'College'
-                    ? 'border-blue-600 text-blue-600 dark:text-blue-400'
-                    : 'border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-300'}`}
+                    ? 'border-[#6366F1] text-[#818CF8]'
+                    : 'border-transparent text-dark-muted hover:text-white'}`}
               >
                 <GraduationCap size={16} />
                 College Study Materials
@@ -170,8 +170,8 @@ export default function ExploreNotesPage() {
                 onClick={() => setLevel('School')}
                 className={`flex items-center gap-2 pb-3 text-sm font-semibold border-b-2 transition-all
                   ${level === 'School'
-                    ? 'border-blue-600 text-blue-600 dark:text-blue-400'
-                    : 'border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-300'}`}
+                    ? 'border-[#6366F1] text-[#818CF8]'
+                    : 'border-transparent text-dark-muted hover:text-white'}`}
               >
                 <BookOpen size={16} />
                 School Study Materials
@@ -196,8 +196,8 @@ export default function ExploreNotesPage() {
                   onClick={() => setShowFilters(p => !p)}
                   className={`flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold border transition-all flex-1 sm:flex-initial
                     ${showFilters
-                      ? 'bg-blue-50 dark:bg-blue-900/30 border-blue-300 dark:border-blue-700 text-blue-600'
-                      : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800'
+                      ? 'bg-[#6366F1]/10 border-[#6366F1]/30 text-[#818CF8]'
+                      : 'border-white/10 text-dark-muted hover:bg-white/5'
                     }`}
                 >
                   <SlidersHorizontal size={15} />
@@ -205,7 +205,7 @@ export default function ExploreNotesPage() {
                   {hasFilters && <span className="w-2 h-2 rounded-full bg-blue-500" />}
                 </button>
                 {hasFilters && (
-                  <button onClick={clearFilters} className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-sm text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all flex-1 sm:flex-initial">
+                  <button onClick={clearFilters} className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-sm text-red-400 hover:bg-red-500/10 transition-all flex-1 sm:flex-initial">
                     <X size={14} /> Clear
                   </button>
                 )}
@@ -219,7 +219,7 @@ export default function ExploreNotesPage() {
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
                   exit={{ opacity: 0, height: 0 }}
-                  className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-800 overflow-hidden"
+                  className="mt-4 pt-4 border-t border-white/5 overflow-hidden"
                 >
                   {level === 'College' ? (
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -267,12 +267,12 @@ export default function ExploreNotesPage() {
         </div>
 
         {/* Content */}
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 py-8">
+        <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-16 py-8">
           <div className="flex items-center justify-between mb-6">
-            <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
+            <h1 className="text-2xl font-bold text-white">
               {debouncedSearch ? `Results for "${debouncedSearch}"` : `Explore ${level} Notes`}
             </h1>
-            <span className="text-sm text-slate-500 dark:text-slate-400">
+            <span className="text-sm text-dark-muted">
               {notes.length} resources found
             </span>
           </div>

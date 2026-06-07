@@ -39,8 +39,8 @@ export function AuthProvider({ children }) {
     return res
   }, [])
 
-  const googleLogin = useCallback(async () => {
-    const res = await authService.googleAuth('mock-google-token')
+  const googleLogin = useCallback(async (token, mode = 'login') => {
+    const res = await authService.googleAuth(token || 'mock-google-token', mode)
     setUser(res.user)
     setIsAuthenticated(true)
     return res

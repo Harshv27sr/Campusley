@@ -43,8 +43,8 @@ export const authService = {
     return res.data
   },
 
-  async googleAuth(token) {
-    const res = await api.post('/auth/google', { token })
+  async googleAuth(token, mode = 'login') {
+    const res = await api.post('/auth/google', { token, mode })
     if (res.data.token) {
       localStorage.setItem('campusly_token', res.data.token)
       localStorage.setItem('campusly_user', JSON.stringify(res.data.user))

@@ -28,8 +28,8 @@ export default function ContactPage() {
 
   return (
     <MainLayout>
-      <div className="bg-slate-50 dark:bg-slate-950 py-16 transition-colors duration-300">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+      <div className="py-16 transition-colors duration-300" style={{ backgroundColor: '#1A1A24' }}>
+        <div className="max-w-5xl mx-auto px-6 sm:px-10 lg:px-16">
 
           {/* Header */}
           <motion.div 
@@ -38,13 +38,13 @@ export default function ContactPage() {
             transition={{ duration: 0.5 }}
             className="text-center max-w-2xl mx-auto mb-16"
           >
-            <div className="w-16 h-16 rounded-2xl bg-indigo-600/10 dark:bg-indigo-400/10 flex items-center justify-center text-indigo-600 dark:text-indigo-400 mx-auto mb-4 shadow-sm">
+            <div className="w-16 h-16 rounded-2xl bg-[#6366F1]/10 flex items-center justify-center text-[#818CF8] mx-auto mb-4">
               <MessageSquare size={32} />
             </div>
-            <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white font-display">
+            <h1 className="text-4xl font-extrabold tracking-tight text-white font-display">
               Get in Touch
             </h1>
-            <p className="text-slate-500 dark:text-slate-400 mt-2 text-sm sm:text-base">
+            <p className="text-dark-muted mt-2 text-sm sm:text-base">
               Have questions, feedback, or need help? Send us a message and we'll reply shortly.
             </p>
           </motion.div>
@@ -59,47 +59,47 @@ export default function ContactPage() {
               className="lg:col-span-5 space-y-6 flex flex-col justify-between"
             >
               <div className="space-y-6">
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white font-display">Contact Details</h2>
-                <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
+                <h2 className="text-2xl font-bold text-white font-display">Contact Details</h2>
+                <p className="text-dark-muted text-sm leading-relaxed">
                   For inquiries regarding notes verification, content takedown/copyright notifications, or corporate integrations, please reach out directly or use the contact form.
                 </p>
 
                 <div className="space-y-4">
                   
                   {/* Email */}
-                  <div className="flex items-start gap-4 bg-white dark:bg-slate-900/60 backdrop-blur-xl border border-slate-200/80 dark:border-slate-800 rounded-2xl p-4 shadow-sm">
-                    <div className="w-10 h-10 rounded-xl bg-indigo-600/10 dark:bg-indigo-400/10 flex items-center justify-center text-indigo-600 dark:text-indigo-400 flex-shrink-0">
+                  <div className="flex items-start gap-4 bg-black/20 border border-white/5 rounded-2xl p-4">
+                    <div className="w-10 h-10 rounded-xl bg-[#6366F1]/10 flex items-center justify-center text-[#818CF8] flex-shrink-0">
                       <Mail size={18} />
                     </div>
                     <div>
-                      <h4 className="text-slate-900 dark:text-white font-bold text-xs uppercase tracking-wider">Email Address</h4>
-                      <a href="mailto:support@campusly.in" className="text-indigo-600 dark:text-indigo-400 text-sm hover:underline block mt-1 font-semibold">
+                      <h4 className="text-white font-bold text-xs uppercase tracking-wider">Email Address</h4>
+                      <a href="mailto:support@campusly.in" className="text-[#818CF8] text-sm hover:underline block mt-1 font-semibold">
                         support@campusly.in
                       </a>
                     </div>
                   </div>
 
                   {/* Response Time */}
-                  <div className="flex items-start gap-4 bg-white dark:bg-slate-900/60 backdrop-blur-xl border border-slate-200/80 dark:border-slate-800 rounded-2xl p-4 shadow-sm">
-                    <div className="w-10 h-10 rounded-xl bg-indigo-600/10 dark:bg-indigo-400/10 flex items-center justify-center text-indigo-600 dark:text-indigo-400 flex-shrink-0">
+                  <div className="flex items-start gap-4 bg-black/20 border border-white/5 rounded-2xl p-4">
+                    <div className="w-10 h-10 rounded-xl bg-[#6366F1]/10 flex items-center justify-center text-[#818CF8] flex-shrink-0">
                       <Clock size={18} />
                     </div>
                     <div>
-                      <h4 className="text-slate-900 dark:text-white font-bold text-xs uppercase tracking-wider">Response Time</h4>
-                      <p className="text-slate-600 dark:text-slate-350 text-sm mt-1 font-semibold">
+                      <h4 className="text-white font-bold text-xs uppercase tracking-wider">Response Time</h4>
+                      <p className="text-dark-muted text-sm mt-1 font-semibold">
                         Within 24 to 48 Hours
                       </p>
                     </div>
                   </div>
 
                   {/* Location */}
-                  <div className="flex items-start gap-4 bg-white dark:bg-slate-900/60 backdrop-blur-xl border border-slate-200/80 dark:border-slate-800 rounded-2xl p-4 shadow-sm">
-                    <div className="w-10 h-10 rounded-xl bg-indigo-600/10 dark:bg-indigo-400/10 flex items-center justify-center text-indigo-600 dark:text-indigo-400 flex-shrink-0">
+                  <div className="flex items-start gap-4 bg-black/20 border border-white/5 rounded-2xl p-4">
+                    <div className="w-10 h-10 rounded-xl bg-[#6366F1]/10 flex items-center justify-center text-[#818CF8] flex-shrink-0">
                       <MapPin size={18} />
                     </div>
                     <div>
-                      <h4 className="text-slate-900 dark:text-white font-bold text-xs uppercase tracking-wider">Country</h4>
-                      <p className="text-slate-600 dark:text-slate-350 text-sm mt-1 font-semibold">
+                      <h4 className="text-white font-bold text-xs uppercase tracking-wider">Country</h4>
+                      <p className="text-dark-muted text-sm mt-1 font-semibold">
                         India
                       </p>
                     </div>
@@ -109,9 +109,9 @@ export default function ContactPage() {
               </div>
 
               {/* Secure portal note */}
-              <div className="bg-indigo-950/40 border border-indigo-500/20 rounded-2xl p-4 mt-6">
-                <p className="text-xs text-indigo-200/70 leading-relaxed">
-                  🛡️ <strong>Encrypted Transmission:</strong> Your message data is securely submitted. We do not share your contact info with third-party tracking networks.
+              <div className="bg-[#6366F1]/5 border border-[#6366F1]/20 rounded-2xl p-4 mt-6">
+                <p className="text-xs text-dark-muted leading-relaxed">
+                  🛡️ <strong className="text-white">Encrypted Transmission:</strong> Your message data is securely submitted. We do not share your contact info with third-party tracking networks.
                 </p>
               </div>
             </motion.div>
@@ -121,7 +121,7 @@ export default function ContactPage() {
               initial={{ opacity: 0, x: 20 }} 
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="lg:col-span-7 bg-white dark:bg-slate-900/60 backdrop-blur-xl border border-slate-200/80 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl flex flex-col justify-center"
+              className="lg:col-span-7 bg-black/20 border border-white/5 rounded-3xl p-6 sm:p-8 flex flex-col justify-center"
             >
               <AnimatePresence mode="wait">
                 {!submitted ? (
@@ -133,7 +133,7 @@ export default function ContactPage() {
                     onSubmit={handleSubmit} 
                     className="space-y-5"
                   >
-                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white font-display mb-4">Send us a message</h3>
+                    <h3 className="text-2xl font-bold text-white font-display mb-4">Send us a message</h3>
                     
                     <Input
                       label="Your Name"
@@ -179,11 +179,11 @@ export default function ContactPage() {
                     exit={{ opacity: 0, scale: 0.95 }}
                     className="text-center py-8 space-y-4"
                   >
-                    <div className="w-16 h-16 rounded-full bg-green-500/10 border border-green-500/20 text-green-500 flex items-center justify-center mx-auto animate-bounce">
+                    <div className="w-16 h-16 rounded-full bg-[#10B981]/10 border border-[#10B981]/20 text-[#10B981] flex items-center justify-center mx-auto animate-bounce">
                       <CheckCircle2 size={36} />
                     </div>
-                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white font-display">Message Sent Successfully!</h3>
-                    <p className="text-slate-500 dark:text-slate-400 text-sm max-w-sm mx-auto">
+                    <h3 className="text-2xl font-bold text-white font-display">Message Sent Successfully!</h3>
+                    <p className="text-dark-muted text-sm max-w-sm mx-auto">
                       Thank you for contacting Campusly! We have received your query and our support team will reach out to you within 24 to 48 hours.
                     </p>
                     <Button 

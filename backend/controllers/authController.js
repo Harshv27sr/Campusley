@@ -301,22 +301,53 @@ exports.resetPassword = async (req, res) => {
 
 exports.googleAuth = async (req, res) => {
   try {
-    const email = 'google.student@university.edu';
+    const { token, mode = 'login' } = req.body;
+    
+    if (!token) {
+      return res.status(400).json({ message: 'Google access token is required' });
+    }
+
+    let email, name, avatar;
+    if (token === 'mock-google-token') {
+      email = 'google.student@university.edu';
+      name = 'Google Student';
+      avatar = null;
+    } else {
+      try {
+        const googleRes = await fetch(`https://www.googleapis.com/oauth2/v3/userinfo?access_token=${token}`);
+        if (!googleRes.ok) {
+          throw new Error('Google token validation failed');
+        }
+        const googleUser = await googleRes.json();
+        email = googleUser.email;
+        name = googleUser.name;
+        avatar = googleUser.picture;
+      } catch (err) {
+        console.error('Google verification error:', err);
+        return res.status(401).json({ message: 'Invalid Google access token or connection error.' });
+      }
+    }
     
     if (isMongoConnected()) {
       let user = await User.findOne({ email });
+      
+      if (mode === 'login' && !user) {
+        return res.status(404).json({ message: 'No account found with this Google email. Please sign up first!' });
+      }
+
       if (!user) {
         user = await User.create({
-          name: 'Google Student',
+          name: name,
           email,
-          password: 'google_oauth_fallback_password_12345',
+          password: bcrypt.hashSync('google_oauth_fallback_password_' + Math.random().toString(36).substring(2, 9), 10),
           educationLevel: 'College',
           college: 'Global University',
           branch: 'Computer Science',
           semester: '5th',
           idCardUrl: '/uploads/placeholder_id.png',
           liveSelfieUrl: null,
-          verificationStatus: 'Verified'
+          verificationStatus: 'Verified',
+          avatar: avatar
         });
       }
 
@@ -341,16 +372,21 @@ exports.googleAuth = async (req, res) => {
           idCardUrl: user.idCardUrl,
           liveSelfieUrl: user.liveSelfieUrl,
           verificationStatus: user.verificationStatus,
+          avatar: user.avatar
         }
       });
     } else {
       const db = jsonDb.readDb();
       let user = db.users.find(u => u.email === email);
       
+      if (mode === 'login' && !user) {
+        return res.status(404).json({ message: 'No account found with this Google email. Please sign up first!' });
+      }
+
       if (!user) {
         user = {
           _id: new mongoose.Types.ObjectId().toString(),
-          name: 'Google Student',
+          name: name,
           email,
           password: bcrypt.hashSync('google_oauth_fallback_password_12345', 10),
           educationLevel: 'College',
@@ -362,6 +398,7 @@ exports.googleAuth = async (req, res) => {
           idCardUrl: '/uploads/placeholder_id.png',
           liveSelfieUrl: null,
           verificationStatus: 'Verified',
+          avatar: avatar,
           createdAt: new Date(),
         };
         db.users.push(user);

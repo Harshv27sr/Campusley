@@ -8,8 +8,8 @@ export default function PrivacyPage() {
 
   return (
     <MainLayout>
-      <div className="bg-slate-50 dark:bg-slate-950 py-16 transition-colors duration-300">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6">
+      <div className="py-16 transition-colors duration-300" style={{ backgroundColor: '#1A1A24' }}>
+        <div className="max-w-4xl mx-auto px-6 sm:px-10 lg:px-16">
           
           {/* Header */}
           <motion.div 
@@ -18,13 +18,13 @@ export default function PrivacyPage() {
             transition={{ duration: 0.5 }}
             className="flex flex-col items-center text-center mb-12"
           >
-            <div className="w-16 h-16 rounded-2xl bg-indigo-600/10 dark:bg-indigo-400/10 flex items-center justify-center text-indigo-600 dark:text-indigo-400 mb-4 shadow-sm">
+            <div className="w-16 h-16 rounded-2xl bg-[#6366F1]/10 flex items-center justify-center text-[#818CF8] mb-4">
               <Shield size={32} />
             </div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold font-display text-slate-900 dark:text-white">
+            <h1 className="text-3xl sm:text-4xl font-extrabold font-display text-white">
               Privacy Policy
             </h1>
-            <p className="text-slate-500 dark:text-slate-400 mt-2 text-sm sm:text-base max-w-xl">
+            <p className="text-dark-muted mt-2 text-sm sm:text-base max-w-xl">
               We value your privacy and are committed to protecting your personal data. Learn how we handle your information on Campusly.
             </p>
           </motion.div>
@@ -34,12 +34,12 @@ export default function PrivacyPage() {
             initial={{ opacity: 0, y: 20 }} 
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="bg-white dark:bg-slate-900/60 backdrop-blur-xl rounded-3xl p-6 sm:p-10 border border-slate-200/80 dark:border-slate-800 shadow-xl space-y-8 text-slate-700 dark:text-slate-300 leading-relaxed"
+            className="bg-black/20 rounded-3xl p-6 sm:p-10 border border-white/5 space-y-8 text-dark-muted leading-relaxed"
           >
             {/* Introduction */}
-            <section className="border-b border-slate-100 dark:border-slate-800/80 pb-6">
+            <section className="border-b border-white/5 pb-6">
               <p>
-                Welcome to <strong>Campusly</strong> (accessible from <a href="https://campusly-kappa.vercel.app" className="text-indigo-600 dark:text-indigo-400 hover:underline">campusly-kappa.vercel.app</a>). 
+                Welcome to <strong>Campusly</strong> (accessible from <a href="https://campusly-kappa.vercel.app" className="text-[#818CF8] hover:underline">campusly-kappa.vercel.app</a>). 
                 This Privacy Policy document outlines the types of personal data collected, how we use it, our cookie practices, and how third-party services like Google AdSense process information. 
                 If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us.
               </p>
@@ -47,8 +47,8 @@ export default function PrivacyPage() {
 
             {/* 1. Information We Collect */}
             <section className="space-y-3">
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                <Info size={20} className="text-indigo-600 dark:text-indigo-400" />
+              <h2 className="text-xl font-bold text-white flex items-center gap-2">
+                <Info size={20} className="text-[#818CF8]" />
                 1. Information We Collect
               </h2>
               <p>
@@ -64,8 +64,8 @@ export default function PrivacyPage() {
 
             {/* 2. How We Use Your Information */}
             <section className="space-y-3">
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                <Lock size={20} className="text-indigo-600 dark:text-indigo-400" />
+              <h2 className="text-xl font-bold text-white flex items-center gap-2">
+                <Lock size={20} className="text-[#818CF8]" />
                 2. How We Use Your Information
               </h2>
               <p> We use the collected data for various purposes, including to: </p>
@@ -81,8 +81,8 @@ export default function PrivacyPage() {
 
             {/* 3. Cookies and Web Beacons */}
             <section className="space-y-3">
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                <Cookie size={20} className="text-indigo-600 dark:text-indigo-400" />
+              <h2 className="text-xl font-bold text-white flex items-center gap-2">
+                <Cookie size={20} className="text-[#818CF8]" />
                 3. Cookies and Web Beacons
               </h2>
               <p>
@@ -92,16 +92,16 @@ export default function PrivacyPage() {
             </section>
 
             {/* 4. Google DoubleClick DART Cookie & Google AdSense */}
-            <section className="space-y-3 bg-indigo-50/50 dark:bg-indigo-950/20 border border-indigo-100 dark:border-indigo-900/50 rounded-2xl p-4 sm:p-6">
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                <Globe size={20} className="text-indigo-600 dark:text-indigo-400" />
+            <section className="space-y-3 bg-[#6366F1]/5 border border-[#6366F1]/20 rounded-2xl p-4 sm:p-6">
+              <h2 className="text-xl font-bold text-white flex items-center gap-2">
+                <Globe size={20} className="text-[#818CF8]" />
                 4. Google AdSense & Third-Party Advertising
               </h2>
               <p className="text-sm sm:text-base">
                 Google is one of the third-party vendors on our site. It also uses cookies, known as DART cookies, to serve ads to our site visitors based upon their visit to our site and other sites on the internet. 
               </p>
               <p className="text-sm sm:text-base mt-2">
-                Visitors may choose to decline the use of DART cookies by visiting the Google ad and content network Privacy Policy at the following URL: <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer" className="text-indigo-600 dark:text-indigo-400 hover:underline">https://policies.google.com/technologies/ads</a>.
+                Visitors may choose to decline the use of DART cookies by visiting the Google ad and content network Privacy Policy at the following URL: <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer" className="text-[#818CF8] hover:underline">https://policies.google.com/technologies/ads</a>.
               </p>
               <p className="text-sm sm:text-base mt-2">
                 Note that Campusly has no access to or control over these cookies that are used by third-party advertisers. You should consult the respective Privacy Policies of these third-party ad servers for more detailed information.
@@ -110,8 +110,8 @@ export default function PrivacyPage() {
 
             {/* 5. Third-Party Privacy Policies */}
             <section className="space-y-3">
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                <FileText size={20} className="text-indigo-600 dark:text-indigo-400" />
+              <h2 className="text-xl font-bold text-white flex items-center gap-2">
+                <FileText size={20} className="text-[#818CF8]" />
                 5. Third-Party Links & External Sites
               </h2>
               <p>
@@ -121,8 +121,8 @@ export default function PrivacyPage() {
 
             {/* 6. User Data Rights */}
             <section className="space-y-3">
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                <Eye size={20} className="text-indigo-600 dark:text-indigo-400" />
+              <h2 className="text-xl font-bold text-white flex items-center gap-2">
+                <Eye size={20} className="text-[#818CF8]" />
                 6. Your Data Protection Rights
               </h2>
               <p>
@@ -137,22 +137,22 @@ export default function PrivacyPage() {
             </section>
 
             {/* 7. Contact Info */}
-            <section className="border-t border-slate-100 dark:border-slate-800/80 pt-6 space-y-2">
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white">7. Contact Information</h2>
+            <section className="border-t border-white/5 pt-6 space-y-2">
+              <h2 className="text-xl font-bold text-white">7. Contact Information</h2>
               <p>
                 If you have any questions or queries regarding this Privacy Policy or user data deletion, please contact us:
               </p>
-              <div className="bg-slate-100 dark:bg-slate-850 rounded-xl p-4 inline-block">
-                <p className="text-sm font-semibold text-slate-900 dark:text-white">Campusly Support</p>
+              <div className="bg-white/5 rounded-xl p-4 inline-block border border-white/5">
+                <p className="text-sm font-semibold text-white">Campusly Support</p>
                 <p className="text-xs text-slate-400 mt-0.5">Country: India</p>
-                <a href="mailto:support@campusly.in" className="text-sm text-indigo-600 dark:text-indigo-400 font-bold hover:underline block mt-1.5">
+                <a href="mailto:support@campusly.in" className="text-sm text-[#818CF8] font-bold hover:underline block mt-1.5">
                   support@campusly.in
                 </a>
               </div>
             </section>
 
             {/* Last updated footer */}
-            <div className="border-t border-slate-150 dark:border-slate-800 pt-6 text-center text-xs text-slate-400 dark:text-slate-500 font-semibold uppercase tracking-wider">
+            <div className="border-t border-white/5 pt-6 text-center text-xs text-dark-muted font-semibold uppercase tracking-wider">
               Last Updated: June 2026
             </div>
 

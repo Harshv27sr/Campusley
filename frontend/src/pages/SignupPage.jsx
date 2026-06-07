@@ -81,16 +81,53 @@ export default function SignupPage() {
   const [serverError, setServerError] = useState(null)
   const [loading, setLoading] = useState(false)
 
-  const handleGoogleLogin = async () => {
+  const handleGoogleLogin = () => {
+    const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID
+    if (!clientId || clientId.includes("YOUR_GOOGLE_CLIENT_ID_HERE")) {
+      toast.error("Google Client ID is not configured! Please add VITE_GOOGLE_CLIENT_ID in your frontend .env file.")
+      return
+    }
+
+    if (!window.google) {
+      toast.error("Google Sign-In library is loading. Please try again in a moment.")
+      return
+    }
+
     setLoading(true)
+
     try {
-      await googleLogin()
-      toast.success('Successfully signed up with Google! 🚀')
-      navigate(from, { replace: true })
+      const client = window.google.accounts.oauth2.initTokenClient({
+        client_id: clientId,
+        scope: "email profile openid",
+        callback: async (response) => {
+          if (response.error) {
+            setLoading(false)
+            toast.error("Google Authentication failed or canceled.")
+            return
+          }
+          if (response.access_token) {
+            try {
+              await googleLogin(response.access_token, 'signup')
+              toast.success('Successfully signed up with Google! 🚀')
+              navigate(from, { replace: true })
+            } catch (err) {
+              toast.error(err.response?.data?.message || 'Google Sign-in failed.')
+            } finally {
+              setLoading(false)
+            }
+          } else {
+            setLoading(false)
+          }
+        },
+        error_callback: (err) => {
+          setLoading(false)
+          toast.error("Google login error: " + err.message)
+        }
+      })
+      client.requestAccessToken()
     } catch (err) {
-      toast.error('Google Sign-in failed.')
-    } finally {
       setLoading(false)
+      toast.error("Failed to initialize Google Sign-in client.")
     }
   }
   

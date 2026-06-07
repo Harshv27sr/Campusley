@@ -1,10 +1,9 @@
-// src/components/layout/Navbar.jsx
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   BookOpen, Plus, Bell, User, ChevronDown,
-  LogOut, Settings, LayoutDashboard, Shield, Menu, X, Search
+  LogOut, Settings, LayoutDashboard, Shield, Menu, X, Search, Moon
 } from 'lucide-react'
 import { useAuth } from '../../context/AuthContext'
 import Avatar from '../ui/Avatar'
@@ -40,27 +39,6 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [lastScrollY, mobileOpen, profileOpen])
 
-  useEffect(() => {
-    const close = (e) => {
-      if (!e.target.closest('#profile-menu')) setProfileOpen(false)
-    }
-    document.addEventListener('click', close)
-    return () => document.removeEventListener('click', close)
-  }, [])
-
-  // Fetch unread notification count when logged in
-  useEffect(() => {
-    if (!isAuthenticated) return
-    import('../../services/userService').then(({ userService }) => {
-      userService.getNotifications()
-        .then(data => {
-          const notifs = Array.isArray(data) ? data : []
-          setUnreadCount(notifs.filter(n => !n.read).length)
-        })
-        .catch(() => {})
-    })
-  }, [isAuthenticated])
-
   const handleSearchSubmit = (e) => {
     e.preventDefault()
     if (searchQuery.trim()) {
@@ -77,79 +55,67 @@ export default function Navbar() {
   }
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      scrolled
-        ? 'bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl shadow-sm border-b border-slate-200/80 dark:border-slate-800'
-        : 'bg-transparent'
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-[#0F0F14] border-b ${
+      scrolled ? 'shadow-sm border-dark-border' : 'border-transparent'
     } ${visible ? 'translate-y-0' : '-translate-y-full'}`}>
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-6">
+      <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-16">
         <div className="flex items-center justify-between h-16 gap-4">
 
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2.5 group flex-shrink-0">
-            <div className="w-9 h-9 rounded-xl gradient-primary flex items-center justify-center shadow-md group-hover:shadow-indigo-500/40 transition-all">
-              <BookOpen size={18} className="text-white" />
+            <div className="w-8 h-8 rounded bg-primary flex items-center justify-center shadow-md">
+              <BookOpen size={16} className="text-white" />
             </div>
-            <span className="text-xl font-bold font-display gradient-text hidden sm:block">Campusly</span>
+            <span className="text-xl font-bold font-display text-white hidden sm:block">Campusly</span>
           </Link>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-5 ml-4">
-            <Link to="/explore" className="text-sm font-semibold text-slate-650 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+          <nav className="hidden lg:flex items-center gap-6 ml-4">
+            <Link to="/explore" className="text-sm font-semibold text-dark-muted hover:text-white transition-colors">
               Explore
             </Link>
-            <Link to="/about" className="text-sm font-semibold text-slate-650 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
-              About Us
+            <Link to="/papers" className="text-sm font-semibold text-dark-muted hover:text-white transition-colors">
+              PYQ Papers
             </Link>
-            <Link to="/contact" className="text-sm font-semibold text-slate-650 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
-              Contact
+            <Link to="/about" className="text-sm font-semibold text-dark-muted hover:text-white transition-colors">
+              About
             </Link>
           </nav>
 
           {/* Global Search Bar */}
-          <form onSubmit={handleSearchSubmit} className="hidden md:flex items-center gap-2 max-w-md w-full bg-slate-100/80 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 rounded-xl px-3 py-1.5 focus-within:ring-2 focus-within:ring-indigo-500/20 focus-within:border-indigo-500 transition-all">
-            <Search size={16} className="text-slate-400" />
+          <form onSubmit={handleSearchSubmit} className="hidden md:flex items-center gap-2 max-w-md w-full bg-dark-card border border-dark-border rounded-full px-4 py-1.5 focus-within:ring-1 focus-within:ring-primary focus-within:border-primary transition-all">
+            <Search size={16} className="text-dark-muted" />
             <input
               type="text"
-              placeholder="Search notes, subjects, PYQs..."
+              placeholder="Search notes, subjects..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="bg-transparent border-none outline-none text-sm text-slate-800 dark:text-slate-200 placeholder:text-slate-400 w-full font-medium"
+              className="bg-transparent border-none outline-none text-sm text-white placeholder:text-dark-muted w-full font-medium"
             />
           </form>
 
           {/* Right Side Actions */}
-          <div className="flex items-center gap-2.5">
-            {isAuthenticated && (
-              <Link to="/upload" className="hidden sm:block">
-                <Button variant="gradient" size="sm" className="shadow-sm font-semibold rounded-xl text-xs flex items-center gap-1.5 px-3 py-1.5" icon={<Plus size={14} />}>
-                  Upload
-                </Button>
-              </Link>
-            )}
-
-
+          <div className="flex items-center gap-4">
+            <button className="text-dark-muted hover:text-white transition-colors hidden sm:block">
+              <Moon size={18} />
+            </button>
+            
             {isAuthenticated ? (
               <>
-                {/* Notifications Bell */}
-                <Link
-                  to="/notifications"
-                  className="relative w-9 h-9 flex items-center justify-center rounded-xl text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
-                >
-                  <Bell size={18} />
-                  {unreadCount > 0 && (
-                    <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-rose-500 rounded-full animate-pulse" />
-                  )}
+                <Link to="/upload" className="hidden sm:block">
+                  <button className="bg-primary hover:bg-primary-hover text-white px-4 py-1.5 rounded text-sm font-medium transition-colors flex items-center gap-1.5">
+                    <Plus size={16} /> Upload
+                  </button>
                 </Link>
 
                 {/* Profile Dropdown */}
                 <div className="relative" id="profile-menu">
                   <button
                     onClick={() => setProfileOpen(p => !p)}
-                    className="flex items-center gap-2 p-1 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-pointer"
+                    className="flex items-center gap-2 p-1 rounded-full border border-dark-border hover:bg-dark-card transition-all cursor-pointer"
                   >
                     <Avatar src={user?.avatar} name={user?.name} size="sm" />
-                    <ChevronDown size={14} className={`text-slate-400 transition-transform hidden sm:block ${profileOpen ? 'rotate-180' : ''}`} />
+                    <ChevronDown size={14} className={`text-dark-muted transition-transform hidden sm:block ${profileOpen ? 'rotate-180' : ''}`} />
                   </button>
 
                   <AnimatePresence>
@@ -159,22 +125,21 @@ export default function Navbar() {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 8, scale: 0.95 }}
                         transition={{ duration: 0.15 }}
-                        className="absolute right-0 top-full mt-2 w-52 bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-800 overflow-hidden z-50"
+                        className="absolute right-0 top-full mt-2 w-52 bg-dark-surface rounded-xl shadow-xl border border-dark-border overflow-hidden z-50"
                       >
-                        <div className="p-3 border-b border-slate-100 dark:border-slate-800">
-                          <p className="font-bold text-slate-900 dark:text-white text-sm truncate">{user?.name}</p>
-                          <p className="text-xs text-slate-500 dark:text-slate-400 truncate">{user?.email}</p>
+                        <div className="p-3 border-b border-dark-border">
+                          <p className="font-bold text-white text-sm truncate">{user?.name}</p>
+                          <p className="text-xs text-dark-muted truncate">{user?.email}</p>
                         </div>
                         <div className="p-1.5 text-left">
                           <DropItem to="/profile" icon={User} label="My Profile" onClick={() => setProfileOpen(false)} />
-                          <DropItem to="/dashboard?tab=uploads" icon={LayoutDashboard} label="My Uploads" onClick={() => setProfileOpen(false)} />
-                          <DropItem to="/settings" icon={Settings} label="Settings" onClick={() => setProfileOpen(false)} />
-                          {isAdmin && <DropItem to="/admin" icon={Shield} label="Admin Panel" onClick={() => setProfileOpen(false)} className="text-purple-600" />}
+                          <DropItem to="/dashboard" icon={LayoutDashboard} label="Dashboard" onClick={() => setProfileOpen(false)} />
+                          {isAdmin && <DropItem to="/admin" icon={Shield} label="Admin Panel" onClick={() => setProfileOpen(false)} className="text-primary" />}
                         </div>
-                        <div className="p-1.5 border-t border-slate-100 dark:border-slate-800">
+                        <div className="p-1.5 border-t border-dark-border">
                           <button
                             onClick={handleLogout}
-                            className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-medium text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all text-left"
+                            className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium text-danger hover:bg-danger/10 transition-all text-left"
                           >
                             <LogOut size={15} />
                             Logout
@@ -186,25 +151,25 @@ export default function Navbar() {
                 </div>
               </>
             ) : (
-              <div className="hidden sm:flex items-center gap-2">
+              <div className="hidden sm:flex items-center gap-4">
                 <Link
                   to="/login"
-                  className="px-4 py-2 rounded-xl text-sm font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+                  className="text-sm font-semibold text-white hover:text-primary transition-colors"
                 >
-                  Login
+                  Sign in
                 </Link>
                 <Link
                   to="/signup"
-                  className="px-4 py-2 rounded-xl text-sm font-semibold text-white gradient-primary shadow-md hover:shadow-indigo-500/30 transition-all"
+                  className="bg-primary hover:bg-primary-hover px-4 py-2 rounded text-sm font-semibold text-white transition-colors"
                 >
-                  Sign Up
+                  Get started
                 </Link>
               </div>
             )}
 
             {/* Mobile Menu Toggle */}
             <button
-              className="md:hidden w-9 h-9 flex items-center justify-center rounded-xl text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+              className="md:hidden w-9 h-9 flex items-center justify-center rounded text-dark-muted hover:bg-dark-card transition-all"
               onClick={() => setMobileOpen(p => !p)}
             >
               {mobileOpen ? <X size={20} /> : <Menu size={20} />}
@@ -212,71 +177,6 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800"
-          >
-            <div className="p-4 space-y-3">
-              {/* Mobile Search */}
-              <form onSubmit={handleSearchSubmit} className="flex items-center gap-2 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 w-full">
-                <Search size={16} className="text-slate-400" />
-                <input
-                  type="text"
-                  placeholder="Search notes, subjects, PYQs..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="bg-transparent border-none outline-none text-sm text-slate-800 dark:text-slate-200 placeholder:text-slate-400 w-full font-medium"
-                />
-              </form>
-
-              {/* Mobile Upload CTA */}
-              {isAuthenticated && (
-                <Link to="/upload" onClick={() => setMobileOpen(false)} className="block w-full">
-                  <Button variant="gradient" className="w-full flex items-center justify-center gap-1.5" icon={<Plus size={16} />}>
-                    Upload Notes
-                  </Button>
-                </Link>
-              )}
-
-              {/* Mobile links */}
-              {isAuthenticated ? (
-                <div className="space-y-1 border-t border-slate-100 dark:border-slate-800 pt-3">
-                  <MobileNavLink to="/explore" onClick={() => setMobileOpen(false)}>🔍 Explore Notes</MobileNavLink>
-                  <MobileNavLink to="/papers" onClick={() => setMobileOpen(false)}>📝 PYQ Papers</MobileNavLink>
-                  <MobileNavLink to="/dashboard" onClick={() => setMobileOpen(false)}>📊 Dashboard</MobileNavLink>
-                  <MobileNavLink to="/bookmarks" onClick={() => setMobileOpen(false)}>🔖 Bookmarks</MobileNavLink>
-                  <MobileNavLink to="/about" onClick={() => setMobileOpen(false)}>ℹ️ About Us</MobileNavLink>
-                  <MobileNavLink to="/contact" onClick={() => setMobileOpen(false)}>📞 Contact Us</MobileNavLink>
-                </div>
-              ) : (
-                <div className="space-y-1 border-t border-slate-100 dark:border-slate-800 pt-3">
-                  <MobileNavLink to="/explore" onClick={() => setMobileOpen(false)}>🔍 Explore Notes</MobileNavLink>
-                  <MobileNavLink to="/papers" onClick={() => setMobileOpen(false)}>📝 PYQ Papers</MobileNavLink>
-                  <MobileNavLink to="/about" onClick={() => setMobileOpen(false)}>ℹ️ About Us</MobileNavLink>
-                  <MobileNavLink to="/contact" onClick={() => setMobileOpen(false)}>📞 Contact Us</MobileNavLink>
-                </div>
-              )}
-
-              {!isAuthenticated && (
-                <div className="flex gap-2 pt-1">
-                  <Link to="/login" onClick={() => setMobileOpen(false)} className="flex-1 text-center px-4 py-2.5 rounded-xl text-sm font-semibold border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300">
-                    Login
-                  </Link>
-                  <Link to="/signup" onClick={() => setMobileOpen(false)} className="flex-1 text-center px-4 py-2.5 rounded-xl text-sm font-semibold text-white gradient-primary">
-                    Sign Up
-                  </Link>
-                </div>
-              )}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </header>
   )
 }
@@ -286,23 +186,10 @@ function DropItem({ to, icon: Icon, label, onClick, className = '' }) {
     <Link
       to={to}
       onClick={onClick}
-      className={`flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all ${className}`}
+      className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium text-dark-text hover:bg-dark-card transition-all ${className}`}
     >
       <Icon size={15} />
       {label}
     </Link>
   )
 }
-
-function MobileNavLink({ to, onClick, children }) {
-  return (
-    <Link
-      to={to}
-      onClick={onClick}
-      className="block px-3 py-2 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
-    >
-      {children}
-    </Link>
-  )
-}
-

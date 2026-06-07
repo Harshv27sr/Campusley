@@ -42,9 +42,9 @@ export default function DashboardLayout({ children }) {
   const [mobileOpen, setMobileOpen] = useState(false)
 
   const SidebarContent = () => (
-    <div className="flex flex-col h-full bg-white dark:bg-slate-900">
+    <div className="flex flex-col h-full" style={{ backgroundColor: '#0F0F14' }}>
       {/* Brand Header */}
-      <div className={`flex items-center gap-3 p-4 mb-2 border-b border-slate-100 dark:border-slate-800/80 ${collapsed ? 'justify-center' : ''}`}>
+      <div className={`flex items-center gap-3 p-4 mb-2 border-b border-white/5 ${collapsed ? 'justify-center' : ''}`}>
         <Link to="/" className="flex items-center gap-2.5 group">
           <div className="w-9 h-9 rounded-xl gradient-primary flex items-center justify-center shadow-md flex-shrink-0">
             <BookOpen size={18} className="text-white" />
@@ -59,7 +59,7 @@ export default function DashboardLayout({ children }) {
           <div key={section.title} className="space-y-1.5">
             {/* Section heading */}
             {!collapsed && (
-              <h4 className="px-3 text-[10px] font-bold tracking-wider text-slate-400 dark:text-slate-500 uppercase">
+              <h4 className="px-3 text-[10px] font-bold tracking-wider text-dark-muted uppercase">
                 {section.title}
               </h4>
             )}
@@ -74,8 +74,9 @@ export default function DashboardLayout({ children }) {
                   className={({ isActive }) =>
                     `flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-all group
                     ${isActive
-                      ? 'bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 font-bold shadow-sm'
-                      : 'text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/60 hover:text-slate-800 dark:hover:text-white'
+                      ? 'bg-[#6366F1]/10 text-[#818CF8] font-bold'
+                      : 'text-dark-muted hover:bg-white/5 hover:text-white'
+                    }
                     }
                     ${collapsed ? 'justify-center' : ''}`
                   }
@@ -102,8 +103,9 @@ export default function DashboardLayout({ children }) {
               className={({ isActive }) =>
                 `flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-all
                 ${isActive
-                  ? 'bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 font-bold shadow-sm'
-                  : 'text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/20'
+                  ? 'bg-purple-500/10 text-purple-400 font-bold'
+                  : 'text-purple-400 hover:bg-purple-500/10'
+                }
                 }
                 ${collapsed ? 'justify-center' : ''}`
               }
@@ -116,15 +118,15 @@ export default function DashboardLayout({ children }) {
       </nav>
 
       {/* Collapsible User Badge Footer */}
-      <div className={`p-3 border-t border-slate-100 dark:border-slate-800/80 mt-2 ${collapsed ? 'flex justify-center' : ''}`}>
+      <div className={`p-3 border-t border-white/5 mt-2 ${collapsed ? 'flex justify-center' : ''}`}>
         {collapsed ? (
           <Avatar src={user?.avatar} name={user?.name} size="sm" />
         ) : (
-          <div className="flex items-center gap-3 px-2 py-2 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-all cursor-pointer">
+          <div className="flex items-center gap-3 px-2 py-2 rounded-xl hover:bg-white/5 transition-all cursor-pointer">
             <Avatar src={user?.avatar} name={user?.name} size="sm" />
             <div className="flex-1 min-w-0 text-left">
-              <p className="text-sm font-semibold text-slate-800 dark:text-white truncate leading-none mb-1">{user?.name}</p>
-              <p className="text-[10px] text-slate-400 dark:text-slate-500 truncate font-semibold uppercase">{user?.educationLevel || 'Student'}</p>
+              <p className="text-sm font-semibold text-white truncate leading-none mb-1">{user?.name}</p>
+              <p className="text-[10px] text-dark-muted truncate font-semibold uppercase">{user?.educationLevel || 'Student'}</p>
             </div>
           </div>
         )}
@@ -133,18 +135,18 @@ export default function DashboardLayout({ children }) {
   )
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
+    <div className="min-h-screen transition-colors duration-300" style={{ backgroundColor: '#1A1A24' }}>
       {/* SaaS Top Header Navbar */}
       <Navbar />
 
       <div className="flex pt-16 min-h-[calc(100vh-4rem)]">
         {/* Desktop Sidebar Layout */}
-        <aside className={`hidden md:flex flex-col fixed top-16 left-0 bottom-0 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800/80 transition-all duration-300 z-40 ${collapsed ? 'w-16' : 'w-60'}`}>
+        <aside className={`hidden md:flex flex-col fixed top-16 left-0 bottom-0 border-r border-white/5 transition-all duration-300 z-40 ${collapsed ? 'w-16' : 'w-60'}`} style={{ backgroundColor: '#0F0F14' }}>
           <SidebarContent />
           {/* Collapse Toggle trigger */}
           <button
             onClick={() => setCollapsed(p => !p)}
-            className="absolute -right-3 top-6 w-6 h-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-full flex items-center justify-center shadow-sm hover:shadow-md transition-all text-slate-500 dark:text-slate-400 z-50 cursor-pointer"
+            className="absolute -right-3 top-6 w-6 h-6 border border-white/10 rounded-full flex items-center justify-center shadow-sm hover:shadow-md transition-all text-dark-muted z-50 cursor-pointer" style={{ backgroundColor: '#1A1A24' }}
           >
             {collapsed ? <ChevronRight size={12} /> : <ChevronLeft size={12} />}
           </button>
@@ -166,7 +168,7 @@ export default function DashboardLayout({ children }) {
                 animate={{ x: 0 }}
                 exit={{ x: -280 }}
                 transition={{ type: 'spring', damping: 25 }}
-                className="fixed top-16 left-0 bottom-0 w-64 bg-white dark:bg-slate-900 z-50 md:hidden"
+                className="fixed top-16 left-0 bottom-0 w-64 z-50 md:hidden" style={{ backgroundColor: '#0F0F14' }}
               >
                 <SidebarContent />
               </motion.aside>
@@ -177,11 +179,11 @@ export default function DashboardLayout({ children }) {
         {/* Content Pane */}
         <main className={`flex-1 transition-all duration-300 p-4 md:p-8 ${collapsed ? 'md:ml-16' : 'md:ml-60'}`}>
           {/* Mobile Top Bar with menu toggle */}
-          <div className="md:hidden flex items-center gap-3 mb-6 bg-white dark:bg-slate-900/50 p-3 rounded-2xl border border-slate-200 dark:border-slate-800/80 shadow-sm">
-            <button onClick={() => setMobileOpen(p => !p)} className="p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800">
-              <Menu size={20} className="text-slate-500 dark:text-slate-400" />
+          <div className="md:hidden flex items-center gap-3 mb-6 bg-black/20 p-3 rounded-2xl border border-white/5">
+            <button onClick={() => setMobileOpen(p => !p)} className="p-2 rounded-xl hover:bg-white/5">
+              <Menu size={20} className="text-dark-muted" />
             </button>
-            <span className="font-bold text-slate-900 dark:text-white text-sm">Navigation Menu</span>
+            <span className="font-bold text-white text-sm">Navigation Menu</span>
           </div>
 
           {children}

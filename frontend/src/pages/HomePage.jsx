@@ -2,7 +2,6 @@
 import MainLayout from '../components/layout/MainLayout'
 import HeroSection from '../components/home/HeroSection'
 import FeaturesSection from '../components/home/FeaturesSection'
-import TrendingNotes from '../components/home/TrendingNotes'
 import TopContributors from '../components/home/TopContributors'
 import AIFeaturesPreview from '../components/home/AIFeaturesPreview'
 import TestimonialsSection from '../components/home/TestimonialsSection'
@@ -13,7 +12,6 @@ export default function HomePage() {
     <MainLayout>
       <HeroSection />
       <FeaturesSection />
-      <TrendingNotes />
       <AIFeaturesPreview />
       <TopContributors />
       <TestimonialsSection />

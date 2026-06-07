@@ -48,10 +48,12 @@ export default function UserProfilePage() {
   if (loading) {
     return (
       <DashboardLayout>
-        <div className="space-y-6 animate-pulse">
-          <div className="bg-slate-200 dark:bg-slate-700 rounded-2xl h-64" />
-          <div className="grid grid-cols-4 gap-4">
-            {[...Array(4)].map((_, i) => <div key={i} className="bg-slate-200 dark:bg-slate-700 rounded-xl h-24" />)}
+        <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 py-6">
+          <div className="space-y-6 animate-pulse">
+            <div className="bg-slate-200 dark:bg-slate-700 rounded-2xl h-64" />
+            <div className="grid grid-cols-4 gap-4">
+              {[...Array(4)].map((_, i) => <div key={i} className="bg-slate-200 dark:bg-slate-700 rounded-xl h-24" />)}
+            </div>
           </div>
         </div>
       </DashboardLayout>
@@ -61,9 +63,11 @@ export default function UserProfilePage() {
   if (!profileData) {
     return (
       <DashboardLayout>
-        <div className="text-center py-20 text-slate-400">
-          <p className="text-4xl mb-3">🙁</p>
-          <p className="font-semibold">Profile not found</p>
+        <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 py-6">
+          <div className="text-center py-20 text-slate-400">
+            <p className="text-4xl mb-3">🙁</p>
+            <p className="font-semibold">Profile not found</p>
+          </div>
         </div>
       </DashboardLayout>
     )
@@ -87,94 +91,96 @@ export default function UserProfilePage() {
 
   return (
     <DashboardLayout>
-      <div className="space-y-6">
-        {/* Profile Card */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden"
-        >
-          {/* Cover */}
-          <div className="h-32 sm:h-48 bg-gradient-to-br from-blue-600 to-purple-700 relative">
-            <div className="absolute inset-0 opacity-20"
-              style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.4) 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
-          </div>
+      <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 py-6">
+        <div className="space-y-6">
+          {/* Profile Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-[#1A1A24] rounded-2xl border border-white/5 overflow-hidden"
+          >
+            {/* Cover */}
+            <div className="h-32 sm:h-48 bg-gradient-to-br from-blue-600 to-purple-700 relative">
+              <div className="absolute inset-0 opacity-20"
+                style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.4) 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
+            </div>
 
-          <div className="px-6 pb-6">
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between -mt-12 sm:-mt-16 mb-4 gap-4">
-              <Avatar
-                name={profile.name}
-                size="2xl"
-                className="ring-4 ring-white dark:ring-slate-800"
-              />
-              <div className="flex gap-2">
-                {isOwnProfile ? (
-                  <Link to="/settings">
-                    <Button variant="outline" size="sm" icon={<Edit2 size={14} />}>Edit Profile</Button>
-                  </Link>
+            <div className="px-6 pb-6">
+              <div className="flex flex-col sm:flex-row sm:items-end justify-between -mt-12 sm:-mt-16 mb-4 gap-4">
+                <Avatar
+                  name={profile.name}
+                  size="2xl"
+                  className="ring-4 ring-[#1A1A24]"
+                />
+                <div className="flex gap-2">
+                  {isOwnProfile ? (
+                    <Link to="/settings">
+                      <Button variant="outline" size="sm" icon={<Edit2 size={14} />}>Edit Profile</Button>
+                    </Link>
+                  ) : (
+                    <Button variant="outline" size="sm" disabled className="opacity-50 cursor-not-allowed">Follow (Soon)</Button>
+                  )}
+                </div>
+              </div>
+
+              <div className="mb-4">
+                <h1 className="text-2xl font-bold text-white font-display">{profile.name}</h1>
+                <p className="text-slate-400 text-sm">{profile.email}</p>
+              </div>
+
+              {profile.bio && (
+                <p className="text-slate-300 text-sm leading-relaxed mb-4 max-w-2xl">{profile.bio}</p>
+              )}
+
+              <div className="flex flex-wrap gap-4 text-sm text-slate-400 mb-5">
+                {profile.educationLevel === 'School' ? (
+                  <>
+                    <span className="flex items-center gap-1.5"><GraduationCap size={15} /> {profile.schoolName || 'School Student'}</span>
+                    <span className="flex items-center gap-1.5"><MapPin size={15} /> {profile.board} • {profile.className}</span>
+                  </>
                 ) : (
-                  <Button variant="outline" size="sm" disabled className="opacity-50 cursor-not-allowed">Follow (Soon)</Button>
+                  <>
+                    <span className="flex items-center gap-1.5"><GraduationCap size={15} /> {profile.college || 'College Student'}</span>
+                    <span className="flex items-center gap-1.5"><MapPin size={15} /> {profile.branch} • Sem {profile.semester}</span>
+                  </>
+                )}
+                {profile.createdAt && (
+                  <span className="flex items-center gap-1.5"><Calendar size={15} /> Joined {formatDate(profile.createdAt)}</span>
                 )}
               </div>
-            </div>
 
-            <div className="mb-4">
-              <h1 className="text-2xl font-bold text-slate-900 dark:text-white font-display">{profile.name}</h1>
-              <p className="text-slate-500 dark:text-slate-400 text-sm">{profile.email}</p>
+              {/* Badges */}
+              <div className="flex flex-wrap gap-2">
+                {badges.map(badge => (
+                  <span key={badge} className="px-3 py-1 rounded-full bg-white/5 border border-white/5 text-slate-300 text-xs font-semibold">
+                    {badge}
+                  </span>
+                ))}
+              </div>
             </div>
+          </motion.div>
 
-            {profile.bio && (
-              <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-4 max-w-2xl">{profile.bio}</p>
-            )}
-
-            <div className="flex flex-wrap gap-4 text-sm text-slate-500 dark:text-slate-400 mb-5">
-              {profile.educationLevel === 'School' ? (
-                <>
-                  <span className="flex items-center gap-1.5"><GraduationCap size={15} /> {profile.schoolName || 'School Student'}</span>
-                  <span className="flex items-center gap-1.5"><MapPin size={15} /> {profile.board} • {profile.className}</span>
-                </>
-              ) : (
-                <>
-                  <span className="flex items-center gap-1.5"><GraduationCap size={15} /> {profile.college || 'College Student'}</span>
-                  <span className="flex items-center gap-1.5"><MapPin size={15} /> {profile.branch} • Sem {profile.semester}</span>
-                </>
-              )}
-              {profile.createdAt && (
-                <span className="flex items-center gap-1.5"><Calendar size={15} /> Joined {formatDate(profile.createdAt)}</span>
-              )}
-            </div>
-
-            {/* Badges */}
-            <div className="flex flex-wrap gap-2">
-              {badges.map(badge => (
-                <span key={badge} className="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold">
-                  {badge}
-                </span>
-              ))}
-            </div>
+          {/* Stats */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            {stats.map((s, i) => (
+              <motion.div key={s.label} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
+                <StatCard {...s} />
+              </motion.div>
+            ))}
           </div>
-        </motion.div>
 
-        {/* Stats */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          {stats.map((s, i) => (
-            <motion.div key={s.label} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
-              <StatCard {...s} />
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Uploaded Notes */}
-        <div>
-          <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-5">
-            Uploaded Notes ({notes?.length || 0})
-          </h2>
-          <NoteGrid
-            notes={notes || []}
-            loading={false}
-            emptyTitle="No uploads yet"
-            emptyDesc="This user hasn't uploaded any notes yet."
-          />
+          {/* Uploaded Notes */}
+          <div>
+            <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-5">
+              Uploaded Notes ({notes?.length || 0})
+            </h2>
+            <NoteGrid
+              notes={notes || []}
+              loading={false}
+              emptyTitle="No uploads yet"
+              emptyDesc="This user hasn't uploaded any notes yet."
+            />
+          </div>
         </div>
       </div>
     </DashboardLayout>

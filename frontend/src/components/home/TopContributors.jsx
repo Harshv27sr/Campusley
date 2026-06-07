@@ -1,4 +1,3 @@
-// src/components/home/TopContributors.jsx
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
@@ -22,13 +21,13 @@ export default function TopContributors() {
 
   if (loading) {
     return (
-      <section className="section-padding bg-white">
-        <div className="container-xl">
+      <section className="py-24 border-t border-white/5" style={{ backgroundColor: '#1A1A24' }}>
+        <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-16">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold font-display text-gray-900">Top <span className="gradient-text">Contributors</span></h2>
+            <h2 className="text-3xl font-bold font-display text-white">Top <span className="gradient-text gradient-primary">Contributors</span></h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {[...Array(6)].map((_, i) => <div key={i} className="h-20 bg-gray-100 rounded-2xl animate-pulse" />)}
+            {[...Array(6)].map((_, i) => <div key={i} className="h-20 bg-white/5 rounded-2xl animate-pulse" />)}
           </div>
         </div>
       </section>
@@ -38,8 +37,8 @@ export default function TopContributors() {
   if (contributors.length === 0) return null
 
   return (
-    <section className="section-padding bg-white">
-      <div className="container-xl">
+    <section className="py-24 border-t border-white/5" style={{ backgroundColor: '#1A1A24' }}>
+      <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-16">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -50,10 +49,10 @@ export default function TopContributors() {
             <Trophy size={16} />
             Leaderboard
           </div>
-          <h2 className="text-3xl sm:text-4xl font-bold font-display text-gray-900 mb-3">
-            Top <span className="gradient-text">Contributors</span>
+          <h2 className="text-3xl sm:text-4xl font-bold font-display text-white mb-3">
+            Top <span className="gradient-text gradient-primary">Contributors</span>
           </h2>
-          <p className="text-gray-500">
+          <p className="text-dark-muted">
             Students who go the extra mile to help their peers
           </p>
         </motion.div>
@@ -75,7 +74,7 @@ export default function TopContributors() {
                   className="flex flex-col items-center"
                 >
                   <div className="text-3xl mb-2">{badges[rank - 1]}</div>
-                  <Avatar src={c.avatar} name={c.name} size="lg" className="mb-2 ring-4 ring-white" />
+                  <Avatar src={c.avatar} name={c.name} size="lg" className="mb-2 ring-4 ring-dark-elevated" />
                   <div className={`text-center bg-gradient-to-b ${rankColors[rank - 1]} rounded-2xl px-6 py-3 ${heights[i]} w-32 flex flex-col items-center justify-center shadow-lg`}>
                     <p className="text-white font-bold text-sm">{c.name?.split(' ')[0]}</p>
                     <p className="text-white/80 text-xs">{c.noteCount || 0} uploads</p>
@@ -100,15 +99,15 @@ export default function TopContributors() {
               transition={{ delay: i * 0.08 }}
             >
               <Link to={`/profile/${c._id || c.id}`}>
-                <div className="flex items-center gap-4 bg-[#F8F9FA] rounded-2xl p-4 border border-gray-200 hover:border-[#1A73E8]/40 transition-all hover:shadow-md group">
+                <div className="flex items-center gap-4 bg-black/20 rounded-2xl p-4 border border-white/5 hover:border-[#6366F1]/40 transition-all hover:bg-black/30 group">
                   <span className="text-2xl">{badges[i + 3] || '🌟'}</span>
                   <Avatar src={c.avatar} name={c.name} size="md" />
                   <div className="flex-1 min-w-0">
-                    <p className="font-bold text-gray-900 text-sm truncate group-hover:text-[#1A73E8] transition-colors">{c.name}</p>
-                    <p className="text-xs text-gray-500">{c.college || c.schoolName || 'Student'}</p>
+                    <p className="font-bold text-white text-sm truncate group-hover:text-[#818CF8] transition-colors">{c.name}</p>
+                    <p className="text-xs text-dark-muted">{c.college || c.schoolName || 'Student'}</p>
                   </div>
                   <div className="text-right flex-shrink-0">
-                    <div className="flex items-center gap-1 text-gray-500 text-xs">
+                    <div className="flex items-center gap-1 text-dark-muted text-xs">
                       <Upload size={11} /> {c.noteCount || 0}
                     </div>
                     {c.avgRating > 0 && (
