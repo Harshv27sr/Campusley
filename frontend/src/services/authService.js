@@ -38,6 +38,11 @@ export const authService = {
     return res.data
   },
 
+  async verifyOTP(identifier, otp) {
+    const res = await api.post('/auth/verify-otp', { identifier, otp })
+    return res.data
+  },
+
   async resetPassword(identifier, otp, password) {
     const res = await api.post('/auth/reset-password', { identifier, otp, password })
     return res.data

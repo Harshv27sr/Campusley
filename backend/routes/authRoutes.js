@@ -5,7 +5,7 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const rateLimit = require('express-rate-limit');
-const { signup, login, logout, getMe, forgotPassword, resetPassword, googleAuth, verifyAccount, getPublicStats, updateAvatar } = require('../controllers/authController');
+const { signup, login, logout, getMe, forgotPassword, verifyOTP, resetPassword, googleAuth, verifyAccount, getPublicStats, updateAvatar } = require('../controllers/authController');
 const { protect } = require('../middleware/auth');
 
 // Rate limiters
@@ -42,6 +42,7 @@ router.get('/me', protect, getMe);
 router.put('/profile/avatar', protect, upload.single('avatar'), updateAvatar);
 router.put('/verify', protect, verifyAccount);
 router.post('/forgot-password', forgotPassword);
+router.post('/verify-otp', verifyOTP);
 router.post('/reset-password', resetPassword);
 router.post('/google', googleAuth);
 

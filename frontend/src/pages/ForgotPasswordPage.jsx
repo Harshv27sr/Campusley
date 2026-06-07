@@ -15,7 +15,7 @@ export default function ForgotPasswordPage() {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   
-  const [step, setStep] = useState(1) // 1: identifier, 2: otp + new password, 3: success
+  const [step, setStep] = useState(1) // 1: identifier, 2: verify otp, 3: set new password, 4: success
   const [loading, setLoading] = useState(false)
 
   const handleSendOTP = async (e) => {
@@ -37,7 +37,7 @@ export default function ForgotPasswordPage() {
       
       // If server returned OTP (fallback developer mode), show it in a toast for easy copy
       if (res.otp) {
-        toast(`[DEV ONLY] OTP is: ${res.otp}`, { icon: '🔑', duration: 10000 })
+        toast(`[DEV ONLY] OTP is: ${res.otp}`, { icon: '🔑', duration: 15000 })
       }
       
       setStep(2)
@@ -48,7 +48,7 @@ export default function ForgotPasswordPage() {
     }
   }
 
-  const handleVerifyAndReset = async (e) => {
+  const handleVerifyOTP = async (e) => {
     e.preventDefault()
     if (!otp) {
       toast.error('Please enter the 6-digit OTP code')
@@ -58,6 +58,21 @@ export default function ForgotPasswordPage() {
       toast.error('OTP code must be 6 digits')
       return
     }
+
+    setLoading(true)
+    try {
+      const res = await authService.verifyOTP(identifier, otp)
+      toast.success(res.message || 'OTP verified successfully! 🎉')
+      setStep(3)
+    } catch (err) {
+      toast.error(err.response?.data?.message || 'Verification failed. Invalid or expired OTP.')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleResetPassword = async (e) => {
+    e.preventDefault()
     if (!password) {
       toast.error('Please enter your new password')
       return
@@ -75,9 +90,9 @@ export default function ForgotPasswordPage() {
     try {
       const res = await authService.resetPassword(identifier, otp, password)
       toast.success(res.message || 'Password reset successfully! 🎉')
-      setStep(3)
+      setStep(4)
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Password reset failed. Check OTP and try again.')
+      toast.error(err.response?.data?.message || 'Password reset failed. Please try again.')
     } finally {
       setLoading(false)
     }
@@ -85,16 +100,26 @@ export default function ForgotPasswordPage() {
 
   return (
     <AuthLayout 
-      title={step === 3 ? 'Password Reset! 🎉' : step === 2 ? 'Verify OTP & Reset' : 'Forgot Password?'} 
+      title={
+        step === 4 
+          ? 'Password Reset! 🎉' 
+          : step === 3 
+            ? 'Set New Password' 
+            : step === 2 
+              ? 'Verify OTP Code' 
+              : 'Forgot Password?'
+      } 
       subtitle={
-        step === 3 
+        step === 4 
           ? 'Your password has been updated successfully' 
-          : step === 2 
-            ? `Enter the OTP sent to your ${method === 'email' ? 'email' : 'mobile number'}` 
-            : 'Recover your account using registered email or mobile number'
+          : step === 3
+            ? 'Create a secure new password for your account'
+            : step === 2 
+              ? `Enter the 6-digit OTP code sent to your ${method === 'email' ? 'email' : 'mobile number'}` 
+              : 'Recover your account using registered email or mobile number'
       }
     >
-      {step === 3 && (
+      {step === 4 && (
         <div className="text-center">
           <div className="w-20 h-20 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center mx-auto mb-6">
             <CheckCircle size={40} className="text-emerald-500" />
@@ -110,18 +135,8 @@ export default function ForgotPasswordPage() {
         </div>
       )}
 
-      {step === 2 && (
-        <form onSubmit={handleVerifyAndReset} className="space-y-4">
-          <Input
-            label="OTP Code (6 Digits)"
-            type="text"
-            icon={Key}
-            placeholder="123456"
-            value={otp}
-            onChange={(e) => setOtp(e.target.value.replace(/\D/g, '').substring(0, 6))}
-            maxLength={6}
-            required
-          />
+      {step === 3 && (
+        <form onSubmit={handleResetPassword} className="space-y-4">
           <Input
             label="New Password"
             type="password"
@@ -141,7 +156,32 @@ export default function ForgotPasswordPage() {
             required
           />
           <Button type="submit" variant="gradient" size="lg" className="w-full" loading={loading}>
-            Verify OTP & Reset
+            Save New Password
+          </Button>
+          <button 
+            type="button" 
+            onClick={() => setStep(2)} 
+            className="w-full text-center text-sm text-slate-500 hover:text-blue-600 font-medium transition-colors"
+          >
+            Go Back
+          </button>
+        </form>
+      )}
+
+      {step === 2 && (
+        <form onSubmit={handleVerifyOTP} className="space-y-4">
+          <Input
+            label="OTP Code (6 Digits)"
+            type="text"
+            icon={Key}
+            placeholder="123456"
+            value={otp}
+            onChange={(e) => setOtp(e.target.value.replace(/\D/g, '').substring(0, 6))}
+            maxLength={6}
+            required
+          />
+          <Button type="submit" variant="gradient" size="lg" className="w-full" loading={loading}>
+            Verify OTP
           </Button>
           <button 
             type="button" 

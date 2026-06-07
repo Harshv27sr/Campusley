@@ -435,6 +435,63 @@ exports.forgotPassword = async (req, res) => {
   }
 };
 
+exports.verifyOTP = async (req, res) => {
+  try {
+    const { identifier, otp } = req.body;
+    if (!identifier || !otp) {
+      return res.status(400).json({ message: 'Email/Mobile and OTP code are required.' });
+    }
+
+    const isEmail = /\S+@\S+\.\S+/.test(identifier);
+    let user = null;
+
+    if (isMongoConnected()) {
+      if (isEmail) {
+        user = await User.findOne({ email: identifier.toLowerCase() });
+      } else {
+        user = await User.findOne({ phone: identifier.trim() });
+      }
+
+      if (!user) {
+        return res.status(404).json({ message: 'No account found with the provided details.' });
+      }
+
+      if (!user.resetPasswordOTP || user.resetPasswordOTP !== otp) {
+        return res.status(400).json({ message: 'Invalid OTP code. Please try again.' });
+      }
+
+      if (new Date(user.resetPasswordOTPExpires) < new Date()) {
+        return res.status(400).json({ message: 'OTP code has expired. Please request a new one.' });
+      }
+    } else {
+      const db = jsonDb.readDb();
+      let foundUser = null;
+      if (isEmail) {
+        foundUser = db.users.find(u => u.email === identifier.toLowerCase());
+      } else {
+        foundUser = db.users.find(u => u.phone === identifier.trim());
+      }
+
+      if (!foundUser) {
+        return res.status(404).json({ message: 'No account found with the provided details.' });
+      }
+
+      if (!foundUser.resetPasswordOTP || foundUser.resetPasswordOTP !== otp) {
+        return res.status(400).json({ message: 'Invalid OTP code. Please try again.' });
+      }
+
+      if (new Date(foundUser.resetPasswordOTPExpires) < new Date()) {
+        return res.status(400).json({ message: 'OTP code has expired. Please request a new one.' });
+      }
+    }
+
+    res.status(200).json({ message: 'OTP verified successfully! You can now set your new password.' });
+  } catch (error) {
+    console.error('VerifyOTP Error:', error);
+    res.status(500).json({ message: 'Failed to verify OTP code. Please try again.' });
+  }
+};
+
 exports.resetPassword = async (req, res) => {
   try {
     const { identifier, otp, password } = req.body;
