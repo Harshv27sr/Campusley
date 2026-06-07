@@ -24,10 +24,14 @@ const SORT_OPTIONS = [
 
 
 
+import { useAuth } from '../context/AuthContext'
+
 export default function ExploreNotesPage() {
+  const { user } = useAuth()
   const [searchParams] = useSearchParams()
   const [search, setSearch] = useState('')
-  const [level, setLevel] = useState('College') // College or School
+  const [level, setLevel] = useState(user?.educationLevel || 'College') // College or School
+  const [isLevelInitialized, setIsLevelInitialized] = useState(false)
   const [filters, setFilters] = useState({
     branch: '', semester: '', collegeSubject: '',
     board: '', className: '', schoolSubject: '',
@@ -35,6 +39,16 @@ export default function ExploreNotesPage() {
   })
   const [showFilters, setShowFilters] = useState(false)
   const [page, setPage] = useState(1)
+
+  // Sync education level dynamically from logged in user profile
+  useEffect(() => {
+    if (user && !isLevelInitialized) {
+      if (user.educationLevel) {
+        setLevel(user.educationLevel)
+      }
+      setIsLevelInitialized(true)
+    }
+  }, [user, isLevelInitialized])
   const [loading, setLoading] = useState(true)
   const [notes, setNotes] = useState([])
   const [navVisible, setNavVisible] = useState(true)
