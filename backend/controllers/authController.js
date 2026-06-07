@@ -332,7 +332,11 @@ exports.googleAuth = async (req, res) => {
       let user = await User.findOne({ email });
       
       if (mode === 'login' && !user) {
-        return res.status(404).json({ message: 'No account found with this Google email. Please sign up first!' });
+        return res.status(404).json({ message: 'This email is not registered on Campusly. Please create an account first using the Sign Up page.' });
+      }
+
+      if (mode === 'signup' && user) {
+        return res.status(409).json({ message: 'This Google email is already registered. Please use the Login page to sign in.' });
       }
 
       if (!user) {
@@ -380,7 +384,11 @@ exports.googleAuth = async (req, res) => {
       let user = db.users.find(u => u.email === email);
       
       if (mode === 'login' && !user) {
-        return res.status(404).json({ message: 'No account found with this Google email. Please sign up first!' });
+        return res.status(404).json({ message: 'This email is not registered on Campusly. Please create an account first using the Sign Up page.' });
+      }
+
+      if (mode === 'signup' && user) {
+        return res.status(409).json({ message: 'This Google email is already registered. Please use the Login page to sign in.' });
       }
 
       if (!user) {

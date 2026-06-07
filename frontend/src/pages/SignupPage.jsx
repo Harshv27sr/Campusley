@@ -83,8 +83,9 @@ export default function SignupPage() {
 
   const handleGoogleLogin = () => {
     const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID
-    if (!clientId || clientId.includes("YOUR_GOOGLE_CLIENT_ID_HERE")) {
-      toast.error("Google Client ID is not configured! Please add VITE_GOOGLE_CLIENT_ID in your frontend .env file.")
+    console.log("Campusly Google Client ID loaded:", clientId)
+    if (!clientId || clientId.includes("YOUR_GOOGLE_CLIENT_ID_HERE") || clientId === "your_google_client_id") {
+      toast.error(`Google Client ID is not configured! (Current value: "${clientId}"). Please add VITE_GOOGLE_CLIENT_ID in your frontend .env file and restart your Vite dev server in your terminal.`)
       return
     }
 
@@ -111,7 +112,13 @@ export default function SignupPage() {
               toast.success('Successfully signed up with Google! 🚀')
               navigate(from, { replace: true })
             } catch (err) {
-              toast.error(err.response?.data?.message || 'Google Sign-in failed.')
+              const status = err.response?.status
+              const msg = err.response?.data?.message || 'Google Sign-up failed.'
+              if (status === 409) {
+                toast.error(msg, { duration: 5000, icon: '⚠️' })
+              } else {
+                toast.error(msg)
+              }
             } finally {
               setLoading(false)
             }
