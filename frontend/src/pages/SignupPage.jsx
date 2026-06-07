@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
-import { Mail, Lock, User, GraduationCap, ArrowRight, BookOpen, UploadCloud, ShieldCheck, FileText, X, Camera, RefreshCw } from 'lucide-react'
+import { Mail, Lock, User, Phone, GraduationCap, ArrowRight, BookOpen, UploadCloud, ShieldCheck, FileText, X, Camera, RefreshCw } from 'lucide-react'
 import Webcam from 'react-webcam'
 import toast from 'react-hot-toast'
 import { State, City } from 'country-state-city'
@@ -20,7 +20,7 @@ export default function SignupPage() {
   
   const [step, setStep] = useState(1)
   const [form, setForm] = useState({
-    name: '', email: '', password: '', confirmPassword: '',
+    name: '', email: '', phone: '', password: '', confirmPassword: '',
     educationLevel: 'College', // College or School
     state: '', city: '',
     college: '', branch: '', semester: '',
@@ -147,6 +147,8 @@ export default function SignupPage() {
     if (!form.name.trim()) e.name = 'Full name is required'
     if (!form.email) e.email = 'Email is required'
     else if (!/\S+@\S+\.\S+/.test(form.email)) e.email = 'Invalid email'
+    if (!form.phone) e.phone = 'Mobile number is required'
+    else if (!/^\d{10}$/.test(form.phone)) e.phone = 'Invalid 10-digit mobile number'
     if (!form.password) e.password = 'Password is required'
     else if (form.password.length < 6) e.password = 'Minimum 6 characters'
     if (form.password !== form.confirmPassword) e.confirmPassword = 'Passwords do not match'
@@ -279,6 +281,7 @@ export default function SignupPage() {
     const formData = new FormData()
     formData.append('name', form.name)
     formData.append('email', form.email)
+    formData.append('phone', form.phone)
     formData.append('password', form.password)
     formData.append('educationLevel', form.educationLevel)
     
@@ -336,6 +339,7 @@ export default function SignupPage() {
 
           <Input label="Full Name" icon={User} placeholder="Rahul Sharma" value={form.name} onChange={set('name')} error={errors.name} required preventAutofill autoComplete="new-password" />
           <Input label="Email" type="email" icon={Mail} placeholder="you@example.com" value={form.email} onChange={set('email')} error={errors.email} required preventAutofill autoComplete="new-password" />
+          <Input label="Mobile Number" type="tel" icon={Phone} placeholder="9876543210" value={form.phone} onChange={set('phone')} error={errors.phone} required preventAutofill autoComplete="new-password" />
           <Input label="Password" type="password" icon={Lock} placeholder="Min. 6 characters" value={form.password} onChange={set('password')} error={errors.password} required preventAutofill autoComplete="new-password" />
           <Input label="Confirm Password" type="password" icon={Lock} placeholder="Repeat password" value={form.confirmPassword} onChange={set('confirmPassword')} error={errors.confirmPassword} required preventAutofill autoComplete="new-password" />
           <Button type="submit" variant="gradient" size="lg" className="w-full mt-2" iconRight={<ArrowRight size={18} />}>

@@ -6,6 +6,8 @@ const jsonDb = require('../utils/jsonDb');
 const mongoose = require('mongoose');
 const path = require('path');
 const { verifyIDCardAI } = require('../utils/aiVerifier');
+const nodemailer = require('nodemailer');
+const twilio = require('twilio');
 
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -15,10 +17,84 @@ const generateToken = (id) => {
 
 const isMongoConnected = () => mongoose.connection.readyState === 1;
 
+const sendEmailOTP = async (email, otp) => {
+  try {
+    const smtpHost = process.env.SMTP_HOST;
+    const smtpPort = process.env.SMTP_PORT;
+    const smtpUser = process.env.SMTP_USER;
+    const smtpPass = process.env.SMTP_PASS;
+
+    if (!smtpHost || !smtpUser || !smtpPass) {
+      console.warn('SMTP credentials not configured in backend .env file. Falling back to console log for OTP.');
+      return false;
+    }
+
+    const transporter = nodemailer.createTransport({
+      host: smtpHost,
+      port: parseInt(smtpPort) || 587,
+      secure: parseInt(smtpPort) === 465,
+      auth: {
+        user: smtpUser,
+        pass: smtpPass,
+      },
+    });
+
+    const mailOptions = {
+      from: `"Campusly App" <${smtpUser}>`,
+      to: email,
+      subject: 'Campusly Password Reset OTP Verification Code',
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px;">
+          <h2 style="color: #4F46E5; text-align: center;">Campusly</h2>
+          <p>Hello,</p>
+          <p>We received a request to reset your password. Use the following OTP code to proceed:</p>
+          <div style="background-color: #f8fafc; border: 2px dashed #cbd5e1; border-radius: 8px; font-size: 28px; font-weight: bold; letter-spacing: 4px; padding: 15px; text-align: center; margin: 20px 0; color: #1e293b;">
+            ${otp}
+          </div>
+          <p style="color: #64748b; font-size: 14px;">This code is valid for 10 minutes. If you did not request a password reset, please ignore this email.</p>
+        </div>
+      `,
+    };
+
+    await transporter.sendMail(mailOptions);
+    console.log(`Real OTP Email sent to ${email} successfully!`);
+    return true;
+  } catch (error) {
+    console.error('Error in sendEmailOTP helper:', error);
+    return false;
+  }
+};
+
+const sendSMSOTP = async (phone, otp) => {
+  try {
+    const accountSid = process.env.TWILIO_ACCOUNT_SID;
+    const authToken = process.env.TWILIO_AUTH_TOKEN;
+    const twilioPhone = process.env.TWILIO_PHONE_NUMBER;
+
+    if (!accountSid || !authToken || !twilioPhone) {
+      console.warn('Twilio SMS credentials not configured in backend .env file. Falling back to console log for OTP.');
+      return false;
+    }
+
+    const client = twilio(accountSid, authToken);
+    await client.messages.create({
+      body: `Your Campusly Password Reset OTP is: ${otp}. Valid for 10 minutes.`,
+      from: twilioPhone,
+      to: phone,
+    });
+
+    console.log(`Real OTP SMS sent to ${phone} successfully!`);
+    return true;
+  } catch (error) {
+    console.error('Error in sendSMSOTP helper:', error);
+    return false;
+  }
+};
+
 exports.signup = async (req, res) => {
   try {
     const {
-      name, email, password, educationLevel,
+      name, email, password, phone, educationLevel,
       state, city,
       college, branch, semester,
       schoolName, board, className
@@ -59,10 +135,18 @@ exports.signup = async (req, res) => {
         return res.status(400).json({ message: 'Email already registered. Please log in.' });
       }
 
+      if (phone) {
+        const phoneExists = await User.findOne({ phone });
+        if (phoneExists) {
+          return res.status(400).json({ message: 'Phone number already registered. Please log in.' });
+        }
+      }
+
       const userPayload = {
         name,
         email,
         password,
+        phone,
         educationLevel,
         state,
         city,
@@ -88,6 +172,7 @@ exports.signup = async (req, res) => {
         _id: user._id,
         name: user.name,
         email: user.email,
+        phone: user.phone,
         role: user.role,
         educationLevel: user.educationLevel,
         college: user.college,
@@ -115,11 +200,16 @@ exports.signup = async (req, res) => {
         return res.status(400).json({ message: 'Email already registered. Please log in.' });
       }
 
+      if (phone && db.users.some(u => u.phone === phone.trim())) {
+        return res.status(400).json({ message: 'Phone number already registered. Please log in.' });
+      }
+
       const newUser = {
         _id: new mongoose.Types.ObjectId().toString(),
         name,
         email: email.toLowerCase(),
         password: bcrypt.hashSync(password, 10),
+        phone: phone ? phone.trim() : undefined,
         role: 'user',
         educationLevel,
         state,
@@ -273,30 +363,151 @@ exports.verifyAccount = async (req, res) => {
 
 exports.forgotPassword = async (req, res) => {
   try {
-    const { email } = req.body;
-    
+    const { identifier } = req.body;
+    if (!identifier) {
+      return res.status(400).json({ message: 'Email or Mobile number is required.' });
+    }
+
+    const isEmail = /\S+@\S+\.\S+/.test(identifier);
+    let user = null;
+    let identifierType = 'email';
+
+    // Generate a random 6-digit OTP
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    const otpExpires = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes from now
+
     if (isMongoConnected()) {
-      const user = await User.findOne({ email });
-      if (!user) {
-        return res.status(404).json({ message: 'No user registered with this email.' });
+      if (isEmail) {
+        user = await User.findOne({ email: identifier.toLowerCase() });
+      } else {
+        user = await User.findOne({ phone: identifier.trim() });
+        identifierType = 'phone';
       }
+
+      if (!user) {
+        return res.status(404).json({ message: `No account found with this ${identifierType}.` });
+      }
+
+      user.resetPasswordOTP = otp;
+      user.resetPasswordOTPExpires = otpExpires;
+      await user.save();
     } else {
       const db = jsonDb.readDb();
-      const user = db.users.find(u => u.email === email.toLowerCase());
-      if (!user) {
-        return res.status(404).json({ message: 'No user registered with this email.' });
+      let foundUser = null;
+      if (isEmail) {
+        foundUser = db.users.find(u => u.email === identifier.toLowerCase());
+      } else {
+        foundUser = db.users.find(u => u.phone === identifier.trim());
+        identifierType = 'phone';
       }
+
+      if (!foundUser) {
+        return res.status(404).json({ message: `No account found with this ${identifierType}.` });
+      }
+
+      foundUser.resetPasswordOTP = otp;
+      foundUser.resetPasswordOTPExpires = otpExpires.toISOString();
+      jsonDb.writeDb(db);
+      user = foundUser;
     }
-    
-    res.status(200).json({ message: 'Password recovery email sent successfully' });
+
+    let sentReal = false;
+    if (identifierType === 'email') {
+      sentReal = await sendEmailOTP(user.email, otp);
+    } else {
+      sentReal = await sendSMSOTP(user.phone, otp);
+    }
+
+    // Always log OTP in console/terminal for development/fallback
+    console.log(`\n==========================================\n`);
+    console.log(`[OTP Verification Code] for ${identifier}: ${otp}`);
+    console.log(`\n==========================================\n`);
+
+    res.status(200).json({
+      message: sentReal 
+        ? `OTP code sent successfully to your registered ${identifierType}.` 
+        : `OTP code generated. (SMTP/Twilio not configured - OTP printed in backend terminal: ${otp})`,
+      otp: sentReal ? undefined : otp
+    });
   } catch (error) {
     console.error('ForgotPassword Error:', error);
-    res.status(500).json({ message: 'Failed to send password recovery instructions.' });
+    res.status(500).json({ message: 'Failed to process password recovery request.' });
   }
 };
 
 exports.resetPassword = async (req, res) => {
-  res.status(200).json({ message: 'Password reset successfully' });
+  try {
+    const { identifier, otp, password } = req.body;
+
+    if (!identifier || !otp || !password) {
+      return res.status(400).json({ message: 'Identifier, OTP code, and new password are required.' });
+    }
+
+    const isEmail = /\S+@\S+\.\S+/.test(identifier);
+    let user = null;
+
+    if (isMongoConnected()) {
+      if (isEmail) {
+        user = await User.findOne({ email: identifier.toLowerCase() });
+      } else {
+        user = await User.findOne({ phone: identifier.trim() });
+      }
+
+      if (!user) {
+        return res.status(404).json({ message: 'No account found with the provided details.' });
+      }
+
+      // Verify OTP & Expiration
+      if (!user.resetPasswordOTP || user.resetPasswordOTP !== otp) {
+        return res.status(400).json({ message: 'Invalid OTP code. Please try again.' });
+      }
+
+      if (new Date(user.resetPasswordOTPExpires) < new Date()) {
+        return res.status(400).json({ message: 'OTP code has expired. Please request a new one.' });
+      }
+
+      // Update password & Clear OTP fields
+      user.password = password; // pre-save hook handles hashing
+      user.resetPasswordOTP = null;
+      user.resetPasswordOTPExpires = null;
+      await user.save();
+    } else {
+      const db = jsonDb.readDb();
+      let userIndex = -1;
+      if (isEmail) {
+        userIndex = db.users.findIndex(u => u.email === identifier.toLowerCase());
+      } else {
+        userIndex = db.users.findIndex(u => u.phone === identifier.trim());
+      }
+
+      if (userIndex === -1) {
+        return res.status(404).json({ message: 'No account found with the provided details.' });
+      }
+
+      const targetUser = db.users[userIndex];
+
+      // Verify OTP & Expiration
+      if (!targetUser.resetPasswordOTP || targetUser.resetPasswordOTP !== otp) {
+        return res.status(400).json({ message: 'Invalid OTP code. Please try again.' });
+      }
+
+      if (new Date(targetUser.resetPasswordOTPExpires) < new Date()) {
+        return res.status(400).json({ message: 'OTP code has expired. Please request a new one.' });
+      }
+
+      // Update password & Clear OTP fields
+      targetUser.password = bcrypt.hashSync(password, 10);
+      targetUser.resetPasswordOTP = null;
+      targetUser.resetPasswordOTPExpires = null;
+
+      jsonDb.writeDb(db);
+    }
+
+    res.status(200).json({ message: 'Password reset successfully. Please log in with your new password.' });
+  } catch (error) {
+    console.error('ResetPassword Error:', error);
+    res.status(500).json({ message: 'Failed to reset password. Please try again.' });
+  }
 };
 
 exports.googleAuth = async (req, res) => {

@@ -42,7 +42,7 @@ router.get('/me', protect, getMe);
 router.put('/profile/avatar', protect, upload.single('avatar'), updateAvatar);
 router.put('/verify', protect, verifyAccount);
 router.post('/forgot-password', forgotPassword);
-router.post('/reset-password/:token', resetPassword);
+router.post('/reset-password', resetPassword);
 router.post('/google', googleAuth);
 
 module.exports = router;

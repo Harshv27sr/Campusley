@@ -15,6 +15,12 @@ const userSchema = new mongoose.Schema({
     lowercase: true,
     trim: true,
   },
+  phone: {
+    type: String,
+    unique: true,
+    sparse: true,
+    trim: true,
+  },
   password: {
     type: String,
     required: [true, 'Password is required'],
@@ -92,6 +98,14 @@ const userSchema = new mongoose.Schema({
   verificationReason: {
     type: String,
     default: '',
+  },
+  resetPasswordOTP: {
+    type: String,
+    default: null,
+  },
+  resetPasswordOTPExpires: {
+    type: Date,
+    default: null,
   },
   createdAt: {
     type: Date,

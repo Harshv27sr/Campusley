@@ -33,13 +33,13 @@ export const authService = {
     return res.data
   },
 
-  async forgotPassword(email) {
-    const res = await api.post('/auth/forgot-password', { email })
+  async forgotPassword(identifier) {
+    const res = await api.post('/auth/forgot-password', { identifier })
     return res.data
   },
 
-  async resetPassword(token, password) {
-    const res = await api.post(`/auth/reset-password/${token}`, { password })
+  async resetPassword(identifier, otp, password) {
+    const res = await api.post('/auth/reset-password', { identifier, otp, password })
     return res.data
   },
 
