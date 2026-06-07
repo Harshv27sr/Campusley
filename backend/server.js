@@ -36,13 +36,13 @@ const allowedOrigins = [
   'http://localhost:5174',
   'http://127.0.0.1:5173',
   'http://127.0.0.1:5174',
-  ...(process.env.FRONTEND_URL ? [process.env.FRONTEND_URL] : []),
+  ...(process.env.FRONTEND_URL ? process.env.FRONTEND_URL.split(',').map(o => o.trim()) : []),
 ];
 
 app.use(cors({
   origin: (origin, callback) => {
-    // Allow requests with no origin (like Postman, mobile apps)
-    if (!origin || allowedOrigins.includes(origin)) {
+    // Allow requests with no origin (like Postman, mobile apps) or any vercel.app subdomain
+    if (!origin || allowedOrigins.includes(origin) || origin.endsWith('.vercel.app')) {
       callback(null, true);
     } else {
       callback(new Error(`CORS blocked: origin ${origin} not allowed`));
