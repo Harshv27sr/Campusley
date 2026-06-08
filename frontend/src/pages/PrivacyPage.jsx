@@ -39,7 +39,7 @@ export default function PrivacyPage() {
             {/* Introduction */}
             <section className="border-b border-white/5 pb-6">
               <p>
-                Welcome to <strong>Campusley</strong> (accessible from <a href="https://campusly-kappa.vercel.app" className="text-[#818CF8] hover:underline">campusly-kappa.vercel.app</a>). 
+                Welcome to <strong>Campusley</strong> (accessible from <a href="https://campusley-kappa.vercel.app" className="text-[#818CF8] hover:underline">campusley-kappa.vercel.app</a>). 
                 This Privacy Policy document outlines the types of personal data collected, how we use it, our cookie practices, and how third-party services like Google AdSense process information. 
                 If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us.
               </p>
