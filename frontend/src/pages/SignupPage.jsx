@@ -242,7 +242,7 @@ export default function SignupPage() {
   const handleStep3Next = (e) => {
     e.preventDefault()
     if (!form.idCard) {
-      toast.error('School/College ID Card is required for student verification.')
+      toast.error('Please upload an ID card or click Skip to proceed without verification.')
       return
     }
     setStep(4)
@@ -266,12 +266,12 @@ export default function SignupPage() {
     setForm(p => ({ ...p, liveSelfie: null }))
   }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
+  const handleSubmit = async (e, skipVerification = false) => {
+    if (e) e.preventDefault()
     setServerError(null)
     
-    if (!form.liveSelfie) {
-      toast.error('A live selfie is required to verify your identity.')
+    if (!skipVerification && !form.liveSelfie) {
+      toast.error('A live selfie is required to verify your identity, or click Skip.')
       return
     }
 
@@ -297,8 +297,8 @@ export default function SignupPage() {
     
     formData.append('state', form.state)
     formData.append('city', form.city)
-    formData.append('idCard', form.idCard)
-    formData.append('liveSelfie', form.liveSelfie)
+    if (form.idCard) formData.append('idCard', form.idCard)
+    if (form.liveSelfie) formData.append('liveSelfie', form.liveSelfie)
 
     try {
       await signup(formData)
@@ -543,6 +543,9 @@ export default function SignupPage() {
             <Button type="button" variant="ghost" size="lg" className="flex-1" onClick={() => setStep(2)}>
               Back
             </Button>
+            <Button type="button" variant="outline" size="lg" className="flex-1" onClick={() => handleSubmit(null, true)}>
+              Skip
+            </Button>
             <Button type="submit" variant="gradient" size="lg" className="flex-1" iconRight={<ArrowRight size={18} />}>
               Continue
             </Button>
@@ -602,6 +605,9 @@ export default function SignupPage() {
           <div className="flex gap-3 pt-2">
             <Button type="button" variant="ghost" size="lg" className="flex-1" onClick={() => setStep(3)}>
               Back
+            </Button>
+            <Button type="button" variant="outline" size="lg" className="flex-1" onClick={() => handleSubmit(null, true)}>
+              Skip
             </Button>
             <Button type="submit" variant="gradient" size="lg" className="flex-1" loading={loading} iconRight={<ArrowRight size={18} />}>
               Submit for Review
