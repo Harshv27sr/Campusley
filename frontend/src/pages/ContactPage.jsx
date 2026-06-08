@@ -73,8 +73,8 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h4 className="text-white font-bold text-xs uppercase tracking-wider">Email Address</h4>
-                      <a href="mailto:support@campusley.in" className="text-[#818CF8] text-sm hover:underline block mt-1 font-semibold">
-                        support@campusley.in
+                      <a href="mailto:campusley10@gmail.com" className="text-[#818CF8] text-sm hover:underline block mt-1 font-semibold">
+                        campusley10@gmail.com
                       </a>
                     </div>
                   </div>

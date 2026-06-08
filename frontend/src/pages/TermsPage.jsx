@@ -38,7 +38,7 @@ export default function TermsPage() {
             </section>
             <section>
               <h2 className="font-bold text-slate-900 dark:text-white text-lg mb-2">5. Contact</h2>
-              <p>For questions about these terms, email us at <a href="mailto:legal@campusley.app" className="text-indigo-600 dark:text-indigo-400 hover:underline">legal@campusley.app</a></p>
+              <p>For questions about these terms, email us at <a href="mailto:campusley10@gmail.com" className="text-indigo-600 dark:text-indigo-400 hover:underline">campusley10@gmail.com</a></p>
             </section>
           </div>
         </motion.div>

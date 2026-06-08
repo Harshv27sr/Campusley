@@ -66,7 +66,7 @@ const seedJson = async () => {
     const adminUser = {
       _id: new mongoose.Types.ObjectId().toString(),
       name: 'Campusley Administrator',
-      email: 'admin@campusley.com',
+      email: 'campusley10@gmail.com',
       password: bcrypt.hashSync('password123', 10),
       educationLevel: 'College',
       college: 'System Operations Group',
@@ -246,7 +246,7 @@ const seed = async () => {
 
     const adminUser = await User.create({
       name: 'Campusley Administrator',
-      email: 'admin@campusley.com',
+      email: 'campusley10@gmail.com',
       password: 'password123',
       educationLevel: 'College',
       college: 'System Operations Group',

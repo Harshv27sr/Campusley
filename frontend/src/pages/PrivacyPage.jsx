@@ -145,8 +145,8 @@ export default function PrivacyPage() {
               <div className="bg-white/5 rounded-xl p-4 inline-block border border-white/5">
                 <p className="text-sm font-semibold text-white">Campusley Support</p>
                 <p className="text-xs text-slate-400 mt-0.5">Country: India</p>
-                <a href="mailto:support@campusley.in" className="text-sm text-[#818CF8] font-bold hover:underline block mt-1.5">
-                  support@campusley.in
+                <a href="mailto:campusley10@gmail.com" className="text-sm text-[#818CF8] font-bold hover:underline block mt-1.5">
+                  campusley10@gmail.com
                 </a>
               </div>
             </section>
