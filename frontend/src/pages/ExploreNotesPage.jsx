@@ -170,26 +170,30 @@ export default function ExploreNotesPage() {
           <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-16 py-4">
             {/* Level Selector Tabs */}
             <div className="flex border-b border-white/5 mb-4 gap-4">
-              <button
-                onClick={() => setLevel('College')}
-                className={`flex items-center gap-2 pb-3 text-sm font-semibold border-b-2 transition-all
-                  ${level === 'College'
-                    ? 'border-[#6366F1] text-[#818CF8]'
-                    : 'border-transparent text-dark-muted hover:text-white'}`}
-              >
-                <GraduationCap size={16} />
-                College Study Materials
-              </button>
-              <button
-                onClick={() => setLevel('School')}
-                className={`flex items-center gap-2 pb-3 text-sm font-semibold border-b-2 transition-all
-                  ${level === 'School'
-                    ? 'border-[#6366F1] text-[#818CF8]'
-                    : 'border-transparent text-dark-muted hover:text-white'}`}
-              >
-                <BookOpen size={16} />
-                School Study Materials
-              </button>
+              {(!user || user.educationLevel !== 'School') && (
+                <button
+                  onClick={() => setLevel('College')}
+                  className={`flex items-center gap-2 pb-3 text-sm font-semibold border-b-2 transition-all
+                    ${level === 'College'
+                      ? 'border-[#6366F1] text-[#818CF8]'
+                      : 'border-transparent text-dark-muted hover:text-white'}`}
+                >
+                  <GraduationCap size={16} />
+                  College Study Materials
+                </button>
+              )}
+              {(!user || user.educationLevel !== 'College') && (
+                <button
+                  onClick={() => setLevel('School')}
+                  className={`flex items-center gap-2 pb-3 text-sm font-semibold border-b-2 transition-all
+                    ${level === 'School'
+                      ? 'border-[#6366F1] text-[#818CF8]'
+                      : 'border-transparent text-dark-muted hover:text-white'}`}
+                >
+                  <BookOpen size={16} />
+                  School Study Materials
+                </button>
+              )}
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
