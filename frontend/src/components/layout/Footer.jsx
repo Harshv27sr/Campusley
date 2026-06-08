@@ -33,7 +33,7 @@ export default function Footer() {
               <div className="w-8 h-8 rounded bg-primary flex items-center justify-center">
                 <BookOpen size={16} className="text-white" />
               </div>
-              <span className="text-xl font-bold font-display text-white">Campusly</span>
+              <span className="text-xl font-bold font-display text-white">Campusley</span>
             </Link>
             <p className="text-sm text-dark-muted leading-relaxed mb-6 max-w-sm">
               Your smart campus learning platform. AI-powered academic resource sharing for Indian students.

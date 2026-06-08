@@ -337,9 +337,9 @@ export default function NoteDetailPage() {
                 <User size={15} className="text-blue-500" /> Uploaded by
               </h4>
               <div className="flex items-center gap-3 mb-4">
-                <Avatar name={note.uploader?.name || 'Campusly Contributor'} size="lg" />
+                <Avatar name={note.uploader?.name || 'Campusley Contributor'} size="lg" />
                 <div className="min-w-0">
-                  <p className="font-bold text-slate-900 dark:text-white truncate">{note.uploader?.name || 'Campusly Contributor'}</p>
+                  <p className="font-bold text-slate-900 dark:text-white truncate">{note.uploader?.name || 'Campusley Contributor'}</p>
                   <p className="text-xs text-slate-500 dark:text-slate-400 truncate">{note.uploader?.email || 'verified.student@university.edu'}</p>
                 </div>
               </div>

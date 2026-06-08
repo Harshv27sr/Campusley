@@ -24,7 +24,7 @@ export default function VerifyPendingPage() {
       const res = await authService.verifyAccount(status)
       
       if (status === 'Verified') {
-        toast.success('Admin Simulator: Account approved! Welcome to Campusly 🎉', { duration: 5000 })
+        toast.success('Admin Simulator: Account approved! Welcome to Campusley 🎉', { duration: 5000 })
         updateUser(res.user)
         navigate('/dashboard', { replace: true })
       } else {

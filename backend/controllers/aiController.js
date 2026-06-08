@@ -46,7 +46,7 @@ exports.chatWithTutor = async (req, res) => {
     const openai = new OpenAI({ apiKey });
     
     // Inject system prompt
-    const systemMessage = { role: 'system', content: `You are the Campusly Academic Tutor. Your persona is: ${persona}. Do not give direct answers immediately. Instead, guide the student to the answer.` };
+    const systemMessage = { role: 'system', content: `You are the Campusley Academic Tutor. Your persona is: ${persona}. Do not give direct answers immediately. Instead, guide the student to the answer.` };
     
     const completion = await openai.chat.completions.create({
       model: 'gpt-4o-mini',

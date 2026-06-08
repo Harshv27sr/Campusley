@@ -17,7 +17,7 @@ const TYPE_META = {
 
 // If backend returns no notifications, show a friendly default set
 const WELCOME_NOTIF = [
-  { _id: 'w1', type: 'admin', text: '🎉 Welcome to Campusly! Your account is set up.', createdAt: new Date().toISOString(), read: false },
+  { _id: 'w1', type: 'admin', text: '🎉 Welcome to Campusley! Your account is set up.', createdAt: new Date().toISOString(), read: false },
   { _id: 'w2', type: 'approved', text: '✅ Your account has been verified. Start uploading!', createdAt: new Date().toISOString(), read: false },
 ]
 

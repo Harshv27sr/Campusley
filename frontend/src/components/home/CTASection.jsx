@@ -31,7 +31,7 @@ export default function CTASection() {
               Ready to Study Smarter?
             </h2>
             <p className="text-dark-muted text-lg max-w-xl mx-auto mb-10">
-              Join 10,000+ students on Campusly. Start exploring, uploading, and acing your exams today.
+              Join 10,000+ students on Campusley. Start exploring, uploading, and acing your exams today.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

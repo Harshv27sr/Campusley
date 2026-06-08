@@ -40,12 +40,12 @@ const sendEmailOTP = async (email, otp) => {
     });
 
     const mailOptions = {
-      from: `"Campusly App" <${smtpUser}>`,
+      from: `"Campusley App" <${smtpUser}>`,
       to: email,
-      subject: 'Campusly Password Reset OTP Verification Code',
+      subject: 'Campusley Password Reset OTP Verification Code',
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px;">
-          <h2 style="color: #4F46E5; text-align: center;">Campusly</h2>
+          <h2 style="color: #4F46E5; text-align: center;">Campusley</h2>
           <p>Hello,</p>
           <p>We received a request to reset your password. Use the following OTP code to proceed:</p>
           <div style="background-color: #f8fafc; border: 2px dashed #cbd5e1; border-radius: 8px; font-size: 28px; font-weight: bold; letter-spacing: 4px; padding: 15px; text-align: center; margin: 20px 0; color: #1e293b;">
@@ -78,7 +78,7 @@ const sendSMSOTP = async (phone, otp) => {
 
     const client = twilio(accountSid, authToken);
     await client.messages.create({
-      body: `Your Campusly Password Reset OTP is: ${otp}. Valid for 10 minutes.`,
+      body: `Your Campusley Password Reset OTP is: ${otp}. Valid for 10 minutes.`,
       from: twilioPhone,
       to: phone,
     });
@@ -600,7 +600,7 @@ exports.googleAuth = async (req, res) => {
       let user = await User.findOne({ email });
       
       if (mode === 'login' && !user) {
-        return res.status(404).json({ message: 'This email is not registered on Campusly. Please create an account first using the Sign Up page.' });
+        return res.status(404).json({ message: 'This email is not registered on Campusley. Please create an account first using the Sign Up page.' });
       }
 
       if (mode === 'signup' && user) {
@@ -652,7 +652,7 @@ exports.googleAuth = async (req, res) => {
       let user = db.users.find(u => u.email === email);
       
       if (mode === 'login' && !user) {
-        return res.status(404).json({ message: 'This email is not registered on Campusly. Please create an account first using the Sign Up page.' });
+        return res.status(404).json({ message: 'This email is not registered on Campusley. Please create an account first using the Sign Up page.' });
       }
 
       if (mode === 'signup' && user) {

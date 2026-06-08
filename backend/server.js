@@ -20,7 +20,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/campusly')
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/campusley')
   .then(() => console.log('✅ Connected to MongoDB successfully'))
   .catch((error) => console.error('❌ MongoDB Connection Error:', error));
 
@@ -88,12 +88,12 @@ app.use('/api/ai', require('./routes/aiRoutes'));
 
 // Root endpoint so visiting localhost:5000 directly doesn't show "Cannot GET /"
 app.get('/', (req, res) => {
-  res.send('<h1>Campusly API is Running! 🚀</h1><p>Frontend should be running on <a href="http://localhost:5173">http://localhost:5173</a></p>');
+  res.send('<h1>Campusley API is Running! 🚀</h1><p>Frontend should be running on <a href="http://localhost:5173">http://localhost:5173</a></p>');
 });
 
 // Basic Health Check Endpoint
 app.get('/api/health', (req, res) => {
-  res.status(200).json({ status: 'OK', message: 'Campusly API Server is fully operational' });
+  res.status(200).json({ status: 'OK', message: 'Campusley API Server is fully operational' });
 });
 
 // Centralized error handler

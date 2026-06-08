@@ -4,7 +4,7 @@ import { BookOpen, Award, Users, Target, BookMarked, CheckCircle } from 'lucide-
 import MainLayout from '../components/layout/MainLayout'
 
 export default function AboutPage() {
-  document.title = 'About Us — Campusly'
+  document.title = 'About Us — Campusley'
 
   return (
     <MainLayout>
@@ -22,7 +22,7 @@ export default function AboutPage() {
               <BookOpen size={32} />
             </div>
             <h1 className="text-4xl font-extrabold tracking-tight text-white font-display">
-              About Campusly
+              About Campusley
             </h1>
             <p className="text-[#818CF8] font-semibold text-lg mt-2 font-display">
               "Smart Campus Learning Platform"
@@ -41,13 +41,13 @@ export default function AboutPage() {
             >
               <h2 className="text-2xl font-bold text-white font-display">Our Vision & Story</h2>
               <p className="text-dark-muted leading-relaxed text-sm sm:text-base">
-                Campusly is a dedicated smart campus learning platform designed to streamline how students share, collaborate, and access academic resources. Built with college and university students in India as our primary audience, Campusly acts as a centralized repository where students can seamlessly upload and download high-quality lecture notes, study materials, and previous year question (PYQ) papers.
+                Campusley is a dedicated smart campus learning platform designed to streamline how students share, collaborate, and access academic resources. Built with college and university students in India as our primary audience, Campusley acts as a centralized repository where students can seamlessly upload and download high-quality lecture notes, study materials, and previous year question (PYQ) papers.
               </p>
               <p className="text-dark-muted leading-relaxed text-sm sm:text-base">
                 Our mission is to foster peer-to-peer educational support. We believe that quality learning materials should not be scattered across unorganized instant messaging threads or locked behind expensive subscriptions. By validating student registrations through secure ID checks, we maintain a secure and spam-free space where genuine academic content thrives.
               </p>
               <p className="text-dark-muted leading-relaxed text-sm sm:text-base">
-                Whether you need to review a syllabus, find solutions to previous year exams, or bookmark important notes for finals, Campusly makes peer learning simple and efficient. We are committed to empowering thousands of students in their higher education journey by making resource sharing structured, accessible, and completely open.
+                Whether you need to review a syllabus, find solutions to previous year exams, or bookmark important notes for finals, Campusley makes peer learning simple and efficient. We are committed to empowering thousands of students in their higher education journey by making resource sharing structured, accessible, and completely open.
               </p>
             </motion.div>
 

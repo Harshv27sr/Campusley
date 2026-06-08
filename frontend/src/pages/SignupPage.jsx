@@ -83,7 +83,7 @@ export default function SignupPage() {
 
   const handleGoogleLogin = () => {
     const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID
-    console.log("Campusly Google Client ID loaded:", clientId)
+    console.log("Campusley Google Client ID loaded:", clientId)
     if (!clientId || clientId.includes("YOUR_GOOGLE_CLIENT_ID_HERE") || clientId === "your_google_client_id") {
       toast.error(`Google Client ID is not configured! (Current value: "${clientId}"). Please add VITE_GOOGLE_CLIENT_ID in your frontend .env file and restart your Vite dev server in your terminal.`)
       return
@@ -314,7 +314,7 @@ export default function SignupPage() {
   }
 
   return (
-    <AuthLayout title="Join Campusly 🚀" subtitle="Create your free student account in seconds">
+    <AuthLayout title="Join Campusley 🚀" subtitle="Create your free student account in seconds">
       {/* Step Indicator */}
       <div className="flex items-center gap-3 mb-6">
         {[1, 2, 3, 4].map((s) => (

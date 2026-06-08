@@ -16,16 +16,16 @@ export const authService = {
   async login(data) {
     const res = await api.post('/auth/login', data)
     if (res.data.token) {
-      localStorage.setItem('campusly_token', res.data.token)
-      localStorage.setItem('campusly_user', JSON.stringify(res.data.user))
+      localStorage.setItem('campusley_token', res.data.token)
+      localStorage.setItem('campusley_user', JSON.stringify(res.data.user))
     }
     return res.data
   },
 
   async logout() {
     await api.post('/auth/logout')
-    localStorage.removeItem('campusly_token')
-    localStorage.removeItem('campusly_user')
+    localStorage.removeItem('campusley_token')
+    localStorage.removeItem('campusley_user')
   },
 
   async getMe() {
@@ -51,22 +51,22 @@ export const authService = {
   async googleAuth(token, mode = 'login') {
     const res = await api.post('/auth/google', { token, mode })
     if (res.data.token) {
-      localStorage.setItem('campusly_token', res.data.token)
-      localStorage.setItem('campusly_user', JSON.stringify(res.data.user))
+      localStorage.setItem('campusley_token', res.data.token)
+      localStorage.setItem('campusley_user', JSON.stringify(res.data.user))
     }
     return res.data
   },
 
   getCurrentUser() {
-    const userStr = localStorage.getItem('campusly_user')
+    const userStr = localStorage.getItem('campusley_user')
     return userStr ? JSON.parse(userStr) : null
   },
 
   getToken() {
-    return localStorage.getItem('campusly_token')
+    return localStorage.getItem('campusley_token')
   },
 
   isAuthenticated() {
-    return !!localStorage.getItem('campusly_token')
+    return !!localStorage.getItem('campusley_token')
   },
 }

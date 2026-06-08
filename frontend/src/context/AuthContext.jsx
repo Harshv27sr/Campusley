@@ -22,7 +22,7 @@ export function AuthProvider({ children }) {
         try {
           const res = await authService.getMe()
           setUser(res.user)
-          localStorage.setItem('campusly_user', JSON.stringify(res.user))
+          localStorage.setItem('campusley_user', JSON.stringify(res.user))
         } catch {
           logout()
         }
@@ -49,8 +49,8 @@ export function AuthProvider({ children }) {
   const signup = useCallback(async (data) => {
     const res = await authService.signup(data)
     if (res.token) {
-      localStorage.setItem('campusly_token', res.token)
-      localStorage.setItem('campusly_user', JSON.stringify(res.user))
+      localStorage.setItem('campusley_token', res.token)
+      localStorage.setItem('campusley_user', JSON.stringify(res.user))
       setUser(res.user)
       setIsAuthenticated(true)
     }
@@ -59,8 +59,8 @@ export function AuthProvider({ children }) {
 
   const logout = useCallback(async () => {
     try { await authService.logout() } catch { /* ignore */ }
-    localStorage.removeItem('campusly_token')
-    localStorage.removeItem('campusly_user')
+    localStorage.removeItem('campusley_token')
+    localStorage.removeItem('campusley_user')
     setUser(null)
     setIsAuthenticated(false)
     toast.success('Logged out successfully')
@@ -69,7 +69,7 @@ export function AuthProvider({ children }) {
   const updateUser = useCallback((newData) => {
     setUser(prev => {
       const updatedUser = { ...prev, ...newData };
-      localStorage.setItem('campusly_user', JSON.stringify(updatedUser));
+      localStorage.setItem('campusley_user', JSON.stringify(updatedUser));
       return updatedUser;
     });
   }, [])

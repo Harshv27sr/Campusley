@@ -8,7 +8,7 @@ import Input, { Textarea } from '../components/ui/Input'
 import Button from '../components/ui/Button'
 
 export default function ContactPage() {
-  document.title = 'Contact Us — Campusly'
+  document.title = 'Contact Us — Campusley'
   const [form, setForm] = useState({ name: '', email: '', message: '' })
   const [loading, setLoading] = useState(false)
   const [submitted, setSubmitted] = useState(false)
@@ -73,8 +73,8 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h4 className="text-white font-bold text-xs uppercase tracking-wider">Email Address</h4>
-                      <a href="mailto:support@campusly.in" className="text-[#818CF8] text-sm hover:underline block mt-1 font-semibold">
-                        support@campusly.in
+                      <a href="mailto:support@campusley.in" className="text-[#818CF8] text-sm hover:underline block mt-1 font-semibold">
+                        support@campusley.in
                       </a>
                     </div>
                   </div>
@@ -184,7 +184,7 @@ export default function ContactPage() {
                     </div>
                     <h3 className="text-2xl font-bold text-white font-display">Message Sent Successfully!</h3>
                     <p className="text-dark-muted text-sm max-w-sm mx-auto">
-                      Thank you for contacting Campusly! We have received your query and our support team will reach out to you within 24 to 48 hours.
+                      Thank you for contacting Campusley! We have received your query and our support team will reach out to you within 24 to 48 hours.
                     </p>
                     <Button 
                       onClick={() => setSubmitted(false)}

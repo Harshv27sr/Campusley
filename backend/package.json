@@ -1,7 +1,7 @@
 {
-  "name": "campusly-backend",
+  "name": "campusley-backend",
   "version": "1.0.0",
-  "description": "Live MERN backend for Campusly Academic Portal",
+  "description": "Live MERN backend for Campusley Academic Portal",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

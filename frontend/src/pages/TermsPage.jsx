@@ -4,7 +4,7 @@ import { FileText } from 'lucide-react'
 import DashboardLayout from '../components/layout/DashboardLayout'
 
 export default function TermsPage() {
-  document.title = 'Terms of Service — Campusly'
+  document.title = 'Terms of Service — Campusley'
   return (
     <DashboardLayout>
       <div className="max-w-3xl mx-auto py-12 px-4">
@@ -22,11 +22,11 @@ export default function TermsPage() {
           <div className="space-y-6 bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 leading-relaxed">
             <section>
               <h2 className="font-bold text-slate-900 dark:text-white text-lg mb-2">1. Acceptance of Terms</h2>
-              <p>By using Campusly, you agree to these Terms of Service. If you do not agree, please do not use our platform.</p>
+              <p>By using Campusley, you agree to these Terms of Service. If you do not agree, please do not use our platform.</p>
             </section>
             <section>
               <h2 className="font-bold text-slate-900 dark:text-white text-lg mb-2">2. Eligibility</h2>
-              <p>Campusly is exclusively for verified students. You must provide a valid student ID during registration. Creating fake accounts is strictly prohibited.</p>
+              <p>Campusley is exclusively for verified students. You must provide a valid student ID during registration. Creating fake accounts is strictly prohibited.</p>
             </section>
             <section>
               <h2 className="font-bold text-slate-900 dark:text-white text-lg mb-2">3. Content Policy</h2>
@@ -38,7 +38,7 @@ export default function TermsPage() {
             </section>
             <section>
               <h2 className="font-bold text-slate-900 dark:text-white text-lg mb-2">5. Contact</h2>
-              <p>For questions about these terms, email us at <a href="mailto:legal@campusly.app" className="text-indigo-600 dark:text-indigo-400 hover:underline">legal@campusly.app</a></p>
+              <p>For questions about these terms, email us at <a href="mailto:legal@campusley.app" className="text-indigo-600 dark:text-indigo-400 hover:underline">legal@campusley.app</a></p>
             </section>
           </div>
         </motion.div>

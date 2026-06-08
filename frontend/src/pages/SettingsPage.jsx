@@ -306,7 +306,7 @@ export default function SettingsPage() {
                 <h4 className="font-semibold text-red-600 mb-2 flex items-center gap-2"><Trash2 size={16} /> Danger Zone</h4>
                 <Button
                   variant="danger"
-                  onClick={() => toast.error('Please contact support@campusly.com to delete your account')}
+                  onClick={() => toast.error('Please contact support@campusley.com to delete your account')}
                   icon={<Trash2 size={16} />}
                 >
                   Delete Account

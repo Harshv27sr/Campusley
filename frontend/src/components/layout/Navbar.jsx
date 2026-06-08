@@ -66,7 +66,7 @@ export default function Navbar() {
             <div className="w-8 h-8 rounded bg-primary flex items-center justify-center shadow-md">
               <BookOpen size={16} className="text-white" />
             </div>
-            <span className="text-xl font-bold font-display text-white hidden sm:block">Campusly</span>
+            <span className="text-xl font-bold font-display text-white hidden sm:block">Campusley</span>
           </Link>
 
           {/* Desktop Navigation Links */}

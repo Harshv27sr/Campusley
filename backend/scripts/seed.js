@@ -65,8 +65,8 @@ const seedJson = async () => {
 
     const adminUser = {
       _id: new mongoose.Types.ObjectId().toString(),
-      name: 'Campusly Administrator',
-      email: 'admin@campusly.com',
+      name: 'Campusley Administrator',
+      email: 'admin@campusley.com',
       password: bcrypt.hashSync('password123', 10),
       educationLevel: 'College',
       college: 'System Operations Group',
@@ -202,14 +202,14 @@ const seedJson = async () => {
 
 const seed = async () => {
   // Create mock document placeholders
-  createMockFile('dbms_notes.pdf', 'Campusly PDF Content - Database Management Systems Comprehensive Notes');
-  createMockFile('electrostatics_class12.pdf', 'Campusly PDF Content - CBSE Class 12 Physics Electrostatics Notes');
-  createMockFile('os_paper_2025.pdf', 'Campusly PDF Content - Mid-Sem Exam Paper for Operating Systems (2025)');
-  createMockFile('maths_quadratics_class10.pdf', 'Campusly PDF Content - Class 10 Quadratic Equations Revision Guide');
-  createMockFile('organic_chemistry_mpboard.docx', 'Campusly Word Content - MP Board Organic Chemistry Reactions Sheet');
+  createMockFile('dbms_notes.pdf', 'Campusley PDF Content - Database Management Systems Comprehensive Notes');
+  createMockFile('electrostatics_class12.pdf', 'Campusley PDF Content - CBSE Class 12 Physics Electrostatics Notes');
+  createMockFile('os_paper_2025.pdf', 'Campusley PDF Content - Mid-Sem Exam Paper for Operating Systems (2025)');
+  createMockFile('maths_quadratics_class10.pdf', 'Campusley PDF Content - Class 10 Quadratic Equations Revision Guide');
+  createMockFile('organic_chemistry_mpboard.docx', 'Campusley Word Content - MP Board Organic Chemistry Reactions Sheet');
 
   try {
-    await mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/campusly', {
+    await mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/campusley', {
       serverSelectionTimeoutMS: 2000 // Time out quickly if local MongoDB daemon is offline
     });
     console.log('✅ Connected to MongoDB database for seeding...');
@@ -245,8 +245,8 @@ const seed = async () => {
     });
 
     const adminUser = await User.create({
-      name: 'Campusly Administrator',
-      email: 'admin@campusly.com',
+      name: 'Campusley Administrator',
+      email: 'admin@campusley.com',
       password: 'password123',
       educationLevel: 'College',
       college: 'System Operations Group',

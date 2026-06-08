@@ -65,7 +65,7 @@ export default function FeaturesSection() {
             Everything Students Need, <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#6366F1] to-[#3B82F6]">In One Place</span>
           </h2>
           <p className="text-lg text-dark-muted max-w-2xl mx-auto">
-            From note discovery to AI study tools — Campusly is the platform built for modern students.
+            From note discovery to AI study tools — Campusley is the platform built for modern students.
           </p>
         </motion.div>
 

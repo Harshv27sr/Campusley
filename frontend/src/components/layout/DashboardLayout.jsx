@@ -49,7 +49,7 @@ export default function DashboardLayout({ children }) {
           <div className="w-9 h-9 rounded-xl gradient-primary flex items-center justify-center shadow-md flex-shrink-0">
             <BookOpen size={18} className="text-white" />
           </div>
-          {!collapsed && <span className="text-lg font-bold gradient-text font-display">Campusly</span>}
+          {!collapsed && <span className="text-lg font-bold gradient-text font-display">Campusley</span>}
         </Link>
       </div>
 

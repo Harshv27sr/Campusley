@@ -47,7 +47,7 @@ export default function LoginPage() {
 
   const handleGoogleLogin = () => {
     const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID
-    console.log("Campusly Google Client ID loaded:", clientId)
+    console.log("Campusley Google Client ID loaded:", clientId)
     if (!clientId || clientId.includes("YOUR_GOOGLE_CLIENT_ID_HERE") || clientId === "your_google_client_id") {
       toast.error(`Google Client ID is not configured! (Current value: "${clientId}"). Please add VITE_GOOGLE_CLIENT_ID in your frontend .env file and restart your Vite dev server in your terminal.`)
       return

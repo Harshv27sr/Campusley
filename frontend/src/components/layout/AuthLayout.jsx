@@ -52,7 +52,7 @@ export default function AuthLayout({ children, title, subtitle }) {
             <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
               <BookOpen size={20} className="text-white" />
             </div>
-            <span className="text-2xl font-bold text-white font-display">Campusly</span>
+            <span className="text-2xl font-bold text-white font-display">Campusley</span>
           </Link>
 
           {/* Centered Glassmorphic Presentation Card */}
@@ -88,7 +88,7 @@ export default function AuthLayout({ children, title, subtitle }) {
             </motion.div>
           </div>
 
-          <p className="text-dark-muted text-sm">© {new Date().getFullYear()} Campusly. All rights reserved.</p>
+          <p className="text-dark-muted text-sm">© {new Date().getFullYear()} Campusley. All rights reserved.</p>
         </div>
       </div>
 
@@ -99,7 +99,7 @@ export default function AuthLayout({ children, title, subtitle }) {
             <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
               <BookOpen size={16} className="text-white" />
             </div>
-            <span className="font-bold text-white font-display">Campusly</span>
+            <span className="font-bold text-white font-display">Campusley</span>
           </Link>
           <div className="ml-auto">
           </div>

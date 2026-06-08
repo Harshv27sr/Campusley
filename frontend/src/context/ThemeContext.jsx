@@ -8,7 +8,7 @@ export function ThemeProvider({ children }) {
     // Force clean light theme mode on load and prevent dark mode classes
     document.documentElement.classList.remove('dark')
     document.body.classList.remove('dark')
-    localStorage.setItem('campusly_theme', 'light')
+    localStorage.setItem('campusley_theme', 'light')
   }, [])
 
   const toggleTheme = () => {}

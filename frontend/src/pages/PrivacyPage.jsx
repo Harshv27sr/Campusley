@@ -4,7 +4,7 @@ import { Shield, Eye, Lock, FileText, Globe, Cookie, Info } from 'lucide-react'
 import MainLayout from '../components/layout/MainLayout'
 
 export default function PrivacyPage() {
-  document.title = 'Privacy Policy — Campusly'
+  document.title = 'Privacy Policy — Campusley'
 
   return (
     <MainLayout>
@@ -25,7 +25,7 @@ export default function PrivacyPage() {
               Privacy Policy
             </h1>
             <p className="text-dark-muted mt-2 text-sm sm:text-base max-w-xl">
-              We value your privacy and are committed to protecting your personal data. Learn how we handle your information on Campusly.
+              We value your privacy and are committed to protecting your personal data. Learn how we handle your information on Campusley.
             </p>
           </motion.div>
 
@@ -39,7 +39,7 @@ export default function PrivacyPage() {
             {/* Introduction */}
             <section className="border-b border-white/5 pb-6">
               <p>
-                Welcome to <strong>Campusly</strong> (accessible from <a href="https://campusly-kappa.vercel.app" className="text-[#818CF8] hover:underline">campusly-kappa.vercel.app</a>). 
+                Welcome to <strong>Campusley</strong> (accessible from <a href="https://campusly-kappa.vercel.app" className="text-[#818CF8] hover:underline">campusly-kappa.vercel.app</a>). 
                 This Privacy Policy document outlines the types of personal data collected, how we use it, our cookie practices, and how third-party services like Google AdSense process information. 
                 If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us.
               </p>
@@ -52,7 +52,7 @@ export default function PrivacyPage() {
                 1. Information We Collect
               </h2>
               <p>
-                Campusly collects information in order to provide academic resources and verification services to our users. This includes:
+                Campusley collects information in order to provide academic resources and verification services to our users. This includes:
               </p>
               <ul className="list-disc list-inside pl-4 space-y-2 text-sm sm:text-base">
                 <li><strong>Account Credentials:</strong> Full Name, Email Address, Password, and Location Details (State & City).</li>
@@ -70,7 +70,7 @@ export default function PrivacyPage() {
               </h2>
               <p> We use the collected data for various purposes, including to: </p>
               <ul className="list-disc list-inside pl-4 space-y-2 text-sm sm:text-base">
-                <li>Provide, operate, maintain, and optimize the Campusly portal.</li>
+                <li>Provide, operate, maintain, and optimize the Campusley portal.</li>
                 <li>Verify student credentials dynamically using AI and administrative review.</li>
                 <li>Ensure a secure community by preventing academic fraud and duplicate profiles.</li>
                 <li>Improve user experience, analyze site usage, and expand academic notes content.</li>
@@ -86,7 +86,7 @@ export default function PrivacyPage() {
                 3. Cookies and Web Beacons
               </h2>
               <p>
-                Campusly uses 'cookies' to store information including visitors' preferences, and the pages on the website that the visitor accessed or visited. 
+                Campusley uses 'cookies' to store information including visitors' preferences, and the pages on the website that the visitor accessed or visited. 
                 The information is used to optimize the users' experience by customizing our web page content based on visitors' browser type and/or other information.
               </p>
             </section>
@@ -104,7 +104,7 @@ export default function PrivacyPage() {
                 Visitors may choose to decline the use of DART cookies by visiting the Google ad and content network Privacy Policy at the following URL: <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer" className="text-[#818CF8] hover:underline">https://policies.google.com/technologies/ads</a>.
               </p>
               <p className="text-sm sm:text-base mt-2">
-                Note that Campusly has no access to or control over these cookies that are used by third-party advertisers. You should consult the respective Privacy Policies of these third-party ad servers for more detailed information.
+                Note that Campusley has no access to or control over these cookies that are used by third-party advertisers. You should consult the respective Privacy Policies of these third-party ad servers for more detailed information.
               </p>
             </section>
 
@@ -115,7 +115,7 @@ export default function PrivacyPage() {
                 5. Third-Party Links & External Sites
               </h2>
               <p>
-                Campusly's Privacy Policy does not apply to other advertisers or websites. Thus, we are advising you to consult the respective Privacy Policies of these third-party ad servers for more detailed information. It may include their practices and instructions about how to opt-out of certain options.
+                Campusley's Privacy Policy does not apply to other advertisers or websites. Thus, we are advising you to consult the respective Privacy Policies of these third-party ad servers for more detailed information. It may include their practices and instructions about how to opt-out of certain options.
               </p>
             </section>
 
@@ -129,7 +129,7 @@ export default function PrivacyPage() {
                 We want to make sure you are fully aware of all of your data protection rights (including CCPA, GDPR, and Indian DPDP Act guidelines):
               </p>
               <ul className="list-disc list-inside pl-4 space-y-2 text-sm sm:text-base">
-                <li><strong>The Right to Access:</strong> You have the right to request copies of your personal data stored on Campusly.</li>
+                <li><strong>The Right to Access:</strong> You have the right to request copies of your personal data stored on Campusley.</li>
                 <li><strong>The Right to Rectification:</strong> You have the right to request that we correct any information you believe is inaccurate.</li>
                 <li><strong>The Right to Erasure:</strong> You have the right to request that we erase your personal data, under certain conditions.</li>
                 <li><strong>The Right to Withdraw Consent:</strong> Since verification requires uploading credentials, you can withdraw consent and delete your uploaded images by contacting us.</li>
@@ -143,10 +143,10 @@ export default function PrivacyPage() {
                 If you have any questions or queries regarding this Privacy Policy or user data deletion, please contact us:
               </p>
               <div className="bg-white/5 rounded-xl p-4 inline-block border border-white/5">
-                <p className="text-sm font-semibold text-white">Campusly Support</p>
+                <p className="text-sm font-semibold text-white">Campusley Support</p>
                 <p className="text-xs text-slate-400 mt-0.5">Country: India</p>
-                <a href="mailto:support@campusly.in" className="text-sm text-[#818CF8] font-bold hover:underline block mt-1.5">
-                  support@campusly.in
+                <a href="mailto:support@campusley.in" className="text-sm text-[#818CF8] font-bold hover:underline block mt-1.5">
+                  support@campusley.in
                 </a>
               </div>
             </section>
